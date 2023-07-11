@@ -5,7 +5,7 @@ const OrderContext = createContext();
 
 const OrderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(orderReducer, orderState);
-  const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 });
+  const [couponValue, setCouponValue] = useState({ couponName: "YOUR STORE", value: 10 });
 
   const [order, setOrder] = useState({});
 

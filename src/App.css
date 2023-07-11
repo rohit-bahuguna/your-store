@@ -9,3 +9,15 @@
 	padding: 0px;
 	box-sizing: border-box;
 }
+
+/* Product Details page Table */
+
+td {
+	font-size: 1rem;
+	padding: 0.2rem 0rem;
+}
+
+td p {
+	color: rgb(120, 116, 116);
+	margin-left: 1rem;
+}

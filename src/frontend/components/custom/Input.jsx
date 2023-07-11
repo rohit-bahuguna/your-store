@@ -1,10 +1,10 @@
 import React from "react";
 
-const Input = ({ inputInfo: { label, type, callback, name, error }, style = "" }) => {
+const Input = ({ inputInfo: { value, label, type, callback, name, error }, style = "" }) => {
 
   return (
     <>
-      <div className="input">
+      <div className="flex flex-col">
         <label htmlFor="" className="label">
           {label}
         </label>
@@ -13,9 +13,10 @@ const Input = ({ inputInfo: { label, type, callback, name, error }, style = "" }
           className={`${style} `}
           onChange={callback}
           name={name}
+          value={value}
         />
         {
-          error.status ? <p className="error">{error.error}</p> : ""
+          error.status ? <p className="text-red-500 text-sm">{error.error}</p> : ""
         }
       </div>
     </>

@@ -27,56 +27,50 @@ export function CartProduct({ product }) {
   };
 
   return (
-    <div key={product._id} className="card horizontal-container">
-      <div className="card-horizontal">
+    <div key={product._id} className="flex  gap-5 border-b ">
+      <div className=" w-[25%] ">
 
         <Link to={`/product-details/${product.id}`}>
-          <img className="card-img horizontal-img" src={product.image} alt={product.title} />
+          <img className=" h-auto" src={product.image} alt={product.title} />
         </Link>
       </div>
-      <div className="card-right">
-        <div className="card-info">
-          <div className="card-title">
-            <div>
-              <h2>{product.title} {product.quantity} {product.scale}</h2>
-              <p className="sold-by">Sold By : {product.soldBy}</p>
-            </div>
-          </div>
-          <div className="price">
-            <p className="disc-price">₹{product.price}</p>
-            <p className="actual-price">₹{product.originalPrice}</p>
-            <p className="price-percentage">({product.percentageOff}% OFF)</p>
-          </div>
-          <div className="qty">
+      <div className="grow py-2 ">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
 
-            <button
-              className="qty-btn"
-              onClick={() => product.qty > 1 && incOrDecProductQuantity("DEC_QTY")}
+            <h2 className="font-semibold text-lg">{product.title} {product.quantity} {product.scale}</h2>
+            <p className="sold-by">Sold By : <span className="text-gray-400">{product.soldBy}</span></p>
+
+          </div>
+          <div className="flex gap-10 items-center font-semibold">
+            <p className="disc-price">₹{product.price}</p>
+            <p className="text-gray-400 line-through">₹{product.originalPrice}</p>
+            <p className="text-green-900  bg-green-100 px-2 py-1 rounded-full">({product.percentageOff}% OFF)</p>
+          </div>
+          <div className="flex gap-3 text-lg font-semibold">
+
+            <button className="hover:bg-gray-300 px-1  py-1 rounded-full " onClick={() => product.qty > 1 &&
+              incOrDecProductQuantity("DEC_QTY")}
               disabled={product.qty > 1 ? false : true}
             >
-              <AiOutlineMinus className="minus" />
+              <AiOutlineMinus className="text-2xl hover:text-red-500   " />
             </button>
-            <span className="qty-count">{product.qty}</span>
-            <button
-              className="qty-btn"
-              onClick={() => incOrDecProductQuantity("INC_QTY")}
+            <span>{product.qty}</span>
+            <button className="hover:bg-gray-300 px-1  py-1 rounded-full " onClick={() => incOrDecProductQuantity("INC_QTY")}
             >
-              <AiOutlinePlus className="add" />
+              <AiOutlinePlus className="text-2xl hover:text-indigo-700   " />
             </button>
           </div>
         </div>
-        <div>
-          <button
-            className="remove-btn"
-            onClick={() => {
-              removeProductFromCart(product._id, token);
-            }}
+        <div className="flex gap-10 mt-5">
+          <button className="border px-5 py-1 text-red-500 rounded-full border-red-500 hover:bg-red-100" onClick={() => {
+            removeProductFromCart(product._id, token);
+          }}
           >
             REMOVE
           </button>
-          <button
-            className="wishlist-btn"
-            onClick={() => (isInWishlist ? navigate("/wishlist") : moveToWishlistFromCart())}
+          <button className="border px-5 py-1 text-indigo-700 rounded-full border-indigo-700 hover:bg-indigo-200" onClick={() =>
+            (isInWishlist ? navigate("/wishlist") : moveToWishlistFromCart())}
           >
             {isInWishlist ? "ALREADY IN WISHLIST" : "MOVE TO WISHLIST"}
           </button>

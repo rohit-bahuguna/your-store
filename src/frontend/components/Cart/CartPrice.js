@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { BiSolidOffer } from "react-icons/bi"
+import { RxCross2 } from "react-icons/rx"
 import { useOrderData } from "../../contexts/orderContext";
 import { ACTION_TYPE, getPriceDetails } from "../../utils";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { useCartData } from "../../contexts/cartContext/cartContext";
+import { CouponModal } from "./CouponModal";
 
-export function CartPrice({ setCouponModal }) {
+export function CartPrice() {
   const navigate = useNavigate();
   const { addresses } = useAuthData();
   const { cart } = useCartData()
   const { couponValue, setCouponValue, dispatch } = useOrderData();
+  const [couponModal, setCouponModal] = useState(false);
 
   const { price, discount } = getPriceDetails(cart);
   const coupon = price
@@ -32,61 +35,73 @@ export function CartPrice({ setCouponModal }) {
   };
 
   return (
-    <div className="price-details">
-      <ul className="coupon">
+    <div className="   flex flex-col gap-3 pt-3 items-center ">
+      <div className="flex gap-12 items-center ">
+        
         <p>
-          <i className="fa fa-tag" aria-hidden="true"></i> Have A Coupon ?
-        </p>
-        <div className="btn outlined-default coupon-btn" onClick={() => setCouponModal(true)}>
+          <BiSolidOffer className="text-3xl text-green-600 inline mr-2"/> Have A Coupon ?
+          </p>
+        
+        <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-lg" onClick={() => setCouponModal(true)}>
           Apply
-        </div>
-      </ul>
-      <h4 >PRICE DETAILS</h4>
+        </button>
+      </div>
+      <h4 className="text-lg font-semibold" >PRICE DETAILS</h4>
 
-      <div className="price-calculate">
-        <li>
-          <ul>
+      <div className="border-b-2 pb-1 list-none flex flex-col gap-3 w-full px-5 text-lg">
+        
+          <div className="flex justify-between ">
             <p>Price ({cart.length} items)</p>
             <p>₹ {price}</p>
-          </ul>
-          <ul>
+          </div>
+          <div className="flex justify-between ">
             <p>Discount</p>
-            <p>-₹ {discount}</p>
-          </ul>
-          <ul>
+            <p className="text-green-600">-₹ {discount}</p>
+          </div>
+          <div className="flex justify-between ">
             <p>Delivery Charges</p>
-            <p>FREE</p>
-          </ul>
-          <ul>
+            <p className="text-green-600">FREE</p>
+          </div>
+          <div className="flex justify-between ">
             <p>Coupon Discount</p>
-            <p>
+            <p className="text-green-600">
               {coupon !== 0 && "-"}₹ {coupon.toFixed(2)}
             </p>
-          </ul>
+          </div>
           {coupon !== 0 && (
-            <ul className="coupon-msg">
+            <div className="flex justify-between ">
               <p>
-                <img src="https://cdn-icons-png.flaticon.com/512/726/726448.png" />
+                <BiSolidOffer className="text-3xl text-green-600 inline mr-2" />
                 {couponValue.couponName}
               </p>
               <p
                 className="remove-coupon"
                 onClick={() => setCouponValue({ couponName: "", value: 0 })}
               >
-                ❌
+                <RxCross2 className="text-3xl text-red-500"/>
               </p>
-            </ul>
-          )}
-        </li>
-      </div>
-      <ul className="price-totalAmt">
+            </div>
+        )}
+        
+         <div className="flex justify-between">
         <h4>Total Amount</h4>
-        <h4>₹ {totalAmt}</h4>
-      </ul>
-      {totalDiscount > 0 && <p className="save-msg">You will save ₹ {totalDiscount} on this order</p>}
-      <div className="primary-btn text-center" onClick={() => checkoutHandler()}>
-        <button className="checkout-btn">Checkout</button>
+        <h4 className="font-semibold">₹ {totalAmt}</h4>
       </div>
+        
+      </div>
+
+       <div className="primary-btn text-center" onClick={() => checkoutHandler()}>
+        <button className="text-lg px-5 py-1 border-indigo-700 text-indigo-700 border rounded-full">Checkout</button>
+      </div>
+     
+      {totalDiscount > 0 && <p className=" bg-green-200  relative rounded-b-xl w-full text-center py-1">You will save <span className="font-semibold ">₹ {totalDiscount}</span> on this order</p>}
+
+      {/* coupon modal */}
+
+    {couponModal &&  <div className="absolute w-full   h-full top-0 ">
+              <CouponModal setCouponModal={setCouponModal} />
+         </div>}
+     
     </div>
   );
 }

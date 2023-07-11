@@ -14,6 +14,7 @@ import { useAuthData } from '../../contexts/AuthContext/authContext';
 import { useProductData } from '../../contexts/productContext/productContext';
 import { ACTION_TYPE } from '../../utils';
 import { useWishlistData } from '../../contexts/wishlistContext';
+import Logo from './Logo';
 export const Header = () => {
   const location = useLocation();
   const { cart } = useCartData()
@@ -44,18 +45,11 @@ export const Header = () => {
   }, [searchInput]);
 
   return (
-    <nav className="flex border-b w-full h-[10vh] shadow  gap-20 justify-evenly items-center sticky top-0 bg-white">
+    <nav className="flex border-b w-full h-[10vh] shadow  gap-20 justify-evenly items-center sticky top-0 bg-white z-10">
 
       {/* Logo */}
       <div className='flex gap-10     '>
-        <Link to="/">
-          <div className=" border-2 border-indigo-500 px-1 pt-1.5 text-center h-12  text-2xl hover:bg-indigo-100  text-indigo-700   ">
-
-            <h1 className="border-b-2 border-x-2 font-bold border-indigo-500   hover:cursor-pointer px-3   ">
-              {' '}YOUR STORE
-            </h1>
-          </div>
-        </Link>
+        <Logo />
 
         {/* Address */}
         <div className=''>

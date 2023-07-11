@@ -51,13 +51,13 @@ export function ProductCard({ product }) {
 	};
 
 	return (
-		<div key={id} className="border-2  hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
+		<div key={id} className="border-b-2  hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
 			<div className='self-end px-3 '>
 				{isInWishlist ? <AiFillHeart className=' text-3xl text-red-500' onClick={wishlistHandler} /> : <AiOutlineHeart className=" text-3xl  " onClick={wishlistHandler} />}
 			</div>
 
 			<img
-				className="w-full h-auto"
+				className="w-full h-auto hover:cursor-pointer"
 				src={image}
 				alt={title}
 				onClick={() => navigate(`/product-details/${id}`)}

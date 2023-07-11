@@ -42,9 +42,10 @@ export function Checkout() {
             <OrderSummary />
           </div>
         ) : (
-          <div className="checkout-main-container ">
+          <div>
             {/* <h3>CHECKOUT </h3> */}
-            <div className="checkout-manage">
+              <div className="flex justify-evenly">
+                 <CheckoutPrice setMsg={setMsg} />
               <div className="checkout-manage-item ">
                 {addresses &&
                   addresses.map(({ _id, name, houseNumber, street, city, state, country, pinCode, mobile }) => (
@@ -105,7 +106,7 @@ export function Checkout() {
                     </div>
                 }
               </div>
-              <CheckoutPrice setMsg={setMsg} />
+             
             </div>
           </div>
         )}

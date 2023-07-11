@@ -16,17 +16,16 @@ export function Cart() {
   const { wishlist } = useWishlistData()
   const { changeTitle } = useProductData()
   const isCartHasItem = cart.length > 0;
-  const [couponModal, setCouponModal] = useState(false);
 
   useEffect(() => { changeTitle("Cart") }, []);
 
   return (
     <Layout>
-      <div className="cart-container">
-        <div className="cart-main-container">
+      <div className="">
+        <div className="px-5 relative">
 
-          <div className="cart-manage">
-            <div className="cart-manage-item">
+          <div className="flex">
+            <div className="flex flex-col gap-5 px-10 justify-center items-center">
               {isCartHasItem ? (
                 cart.map((product) => <CartProduct key={product._id} product={product} />)
               ) : (
@@ -49,9 +48,11 @@ export function Cart() {
                 </div>
               )}
             </div>
-            {isCartHasItem && <CartPrice setCouponModal={setCouponModal} />}
+            <div className="fixed top-24 border rounded-xl w-1/4 right-20 ">
+               {isCartHasItem && <CartPrice/>}
+           </div>
           </div>
-          {couponModal && <CouponModal setCouponModal={setCouponModal} />}
+          
         </div>
       </div>
     </Layout>

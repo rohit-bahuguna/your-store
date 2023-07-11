@@ -5,6 +5,7 @@ import { useOrderData } from "../../contexts/orderContext";
 import { toast } from "react-toastify";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import { ACTION_TYPE } from "../../utils";
+import { CartPrice } from "../Cart/CartPrice";
 
 export function CheckoutPrice({ setMsg }) {
   const navigate = useNavigate();
@@ -84,80 +85,79 @@ export function CheckoutPrice({ setMsg }) {
     }
   };
   return (
-    <div className="checkout-details">
-      <h4 className="text-center border-header">ORDER DETAILS</h4>
+    <div className="border rounded-xl flex flex-col gap-5 justify-center py-3 px-2 w-1/3">
+      <h4 className="text-lg font-semibold self-center">ORDER DETAILS</h4>
+
+      <table className=" ">
+        <thead>
+          <tr>
+            <th className="border-y border-gray-400">Item</th>
+            <th className="border-y border-l border-gray-400">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map(({ _id, title, scale, qty }) => (
+            <tr key={_id}>
+              <td className="border-y py-1 text-center">{title}</td>
+              <td className="border-y py-1 border-l text-center">{qty} {scale}</td>
+            </tr>
+        ))}
+        </tbody>
+      </table>
+      <h4 className="text-lg font-semibold self-center" >PRICE DETAILS</h4>
       <div>
 
-        <ul className="order-header">
-          <p>Item</p>
-          <p>Qty</p>
-        </ul>
 
+        <div className="border-b-2 pb-1 list-none flex flex-col gap-4 w-full px-5 text-lg">
 
-        {cart.map(({ _id, title, scale, qty }) => (
-          <ul key={_id}>
-            <p>{title}</p>
-            <p>{qty} {scale}</p>
-          </ul>
-        ))}
-
-      </div>
-      <h4 className="text-center border-header">PRICE DETAILS</h4>
-
-      <div className="checkout-calculate">
-
-        <ul>
-          <p>Price ({cart.length} items)</p>
-          <p>₹ {price}</p>
-        </ul>
-        <ul>
-          <p>Discount</p>
-          <p>₹ {discount}</p>
-        </ul>
-        <ul>
-          <p>Delivery Charges</p>
-          <p>FREE</p>
-        </ul>
-
-        <ul>
-          <p>Coupon Discount</p>
-          <p>
-            {coupon !== 0 && "-"}₹ {coupon}
-          </p>
-        </ul>
-        {coupon !== 0 && (
-          <ul className="coupon-msg">
-            <p>
-              <img src="https://cdn-icons-png.flaticon.com/512/726/726448.png" />
-              {couponValue.couponName}
+          <div className="flex justify-between ">
+            <p>Price ({cart.length} items)</p>
+            <p>₹ {price}</p>
+          </div>
+          <div className="flex justify-between ">
+            <p>Discount</p>
+            <p className="text-green-600">-₹ {discount}</p>
+          </div>
+          <div className="flex justify-between ">
+            <p>Delivery Charges</p>
+            <p className="text-green-600">FREE</p>
+          </div>
+          <div className="flex justify-between ">
+            <p>Coupon Discount</p>
+            <p className="text-green-600">
+              {coupon !== 0 && "-"}₹ {coupon.toFixed(2)}
             </p>
-          </ul>
-        )}
+          </div>
+
+
+          <div className="flex justify-between">
+            <h4>Total Amount</h4>
+            <h4 className="font-semibold">₹ {totalAmt}</h4>
+          </div>
 
       </div>
+      </div>
 
-      <ul>
-        <h4>Total Amount</h4>
-        <h4>₹ {totalAmt}</h4>
-      </ul>
 
-      <h4 className="text-center border-header">DELIVER TO</h4>
+
+      <h4 className="text-lg font-semibold self-center">DELIVER TO</h4>
       {orderAddress.name && (
-        <div className="deliver-container ">
-          <div>
+        <div className="px-3">
+
             <p className="paragraph-md ">
               {orderAddress.houseNumber} ,
               {orderAddress.name}</p>
             <p className="paragraph-sm">
-              {orderAddress.street}, {orderAddress.city} , {orderAddress.state} ,
-              {orderAddress.country}. {orderAddress.pinCode}
+            {orderAddress.street}, {orderAddress.city} ,
+            {orderAddress.state} ,
+            {orderAddress.country}. {orderAddress.pinCode}
             </p>
 
-          </div>
+
         </div>
       )}
-      <div className="primary-btn text-center" onClick={() => placeOrderHandler()}>
-        <button className="link-btn place-order-btn">Place Order</button>
+      <div className="text-center" onClick={() => placeOrderHandler()}>
+        <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-lg">Place Order</button>
       </div>
     </div>
   );
