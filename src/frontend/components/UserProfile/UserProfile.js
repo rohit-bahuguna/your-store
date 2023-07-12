@@ -7,7 +7,7 @@ import { ACTION_TYPE } from '../../utils';
 import { AddressForm } from './AddressForm';
 import { CgProfile } from "react-icons/cg"
 import { FaHandsPraying } from "react-icons/fa6"
-import { FiLogOut } from "react-icons/fi"
+import { FiLogOut, FiMoreVertical } from "react-icons/fi"
 import Input from "../custom/Input"
 import { useProductData } from '../../contexts/productContext/productContext';
 import { useCartData } from '../../contexts/cartContext/cartContext';
@@ -36,12 +36,13 @@ export function UserProfile() {
 		city: '',
 		state: '',
 		country: '',
-		zipCode: '',
+		pinCode: '',
 		mobile: ''
 	};
 	const [formDisplay, setFormDisplay] = useState(false);
 	const [addressForm, setAddForm] = useState(formValue);
-
+	const [enableEdit, setEnableEdit] = useState(true)
+	const [display, setDisplay] = useState('info')
 	const logOutHandler = () => {
 		dispatchAuthData({
 			type: ACTION_TYPE.LOG_OUT
@@ -71,7 +72,7 @@ export function UserProfile() {
 		city,
 		state,
 		country,
-		zipCode,
+		pinCode,
 		mobile
 	) => {
 		setFormDisplay(true);
@@ -83,7 +84,7 @@ export function UserProfile() {
 			city,
 			state,
 			country,
-			zipCode,
+			pinCode,
 			mobile
 		}));
 	};
@@ -102,19 +103,23 @@ export function UserProfile() {
 					<div className='border-2 rounded-xl  py-3 px-2'>
 						<h1 className='text-lg mb-2 font-semibold'>ACCOUNT SETTINGS</h1>
 						<div className=' flex flex-col gap-2 px-3'>
-							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>Profile Information</p>
-							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>Manage Addresses</p>
-							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100 ${display === "info" && 'bg-sky-100'}`}
+								onClick={() => setDisplay('info')}
+							>Profile Information</p>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100 ${display === "address" && 'bg-sky-100'}`}
+								onClick={() => setDisplay('address')}
+							>Manage Addresses</p>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100`}>
 
 								Logout</p>
 						</div>
 					</div>
 				</div>
 				<div className=" grow h-auto border rounded-xl px-5">
-					<div className="flex flex-col gap-3 py-3">
+					{display === "info" ? <div className="flex flex-col gap-3 py-3">
 
 						<h3 className="text-xl font-semibold self-center">Profile Information</h3>
-						<div className="flex items-center border justify-around  ">
+						<div className="flex items-center  justify-around  ">
 							<Input
 								inputInfo={{
 
@@ -125,8 +130,8 @@ export function UserProfile() {
 									value: name,
 									error: { status: false }
 								}}
-								style={"border py-1 px-2"}
-								disabled={true}
+								style={"border py-1 px-2 disabled:bg-gray-200"}
+								disabled={enableEdit}
 							/>
 
 							<Input
@@ -139,24 +144,38 @@ export function UserProfile() {
 									name: "email",
 									error: { status: false }
 								}}
-								style={"border py-1 px-2"}
-								disabled={true}
+								style={"border py-1 px-2 disabled:bg-gray-200"}
+								disabled={enableEdit}
 							/>
 
-							<div>
-								<button className='px-5 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '>
-									Edit
-								</button>
+							<div className='mt-5'>
+								{enableEdit ?
+									<button className='px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '
+										onClick={() => setEnableEdit(false)}
+									>
+										Edit
+									</button> :
+									<div className='flex gap-5'>
+										<button className='px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '
+
+										>
+											Save
+										</button>
+										<button className='px-6 py-1 border-red-500 text-red-500 hover:bg-red-100 border text-lg rounded-full '
+											onClick={() => setEnableEdit(true)}
+										>
+											Cancel
+										</button>
+									</div>
+								}
 							</div>
 						</div>
+					</div> :
+						<div className="flex flex-col py-3">
+							<h3 className="text-xl font-semibold self-center">My Addresses</h3>
 
-
-
-						<div className="">
-							<h3 className="details-header">My Addresses</h3>
-
-							{address &&
-								address.map(
+							{addresses &&
+								addresses.map(
 									({
 										_id,
 										name,
@@ -164,27 +183,21 @@ export function UserProfile() {
 										city,
 										state,
 										country,
-										zipCode,
+										pinCode,
 										mobile
-									}) =>
-										<div key={_id} className="address-container">
-											<p>
-												{name}
-											</p>
-											<div>
+									}) => <div key={_id} className="border relative flex justify-between px-10 py-5">
+											<div className='flex flex-col gap-2'>
 												<p>
-													{street}, {city},{state}. {zipCode}
+													{name} , {street},
 												</p>
 												<p>
-													{country}.
-												</p>
-												<p>
-													Phone Number : {mobile}
+													{city}, {state} {pinCode}  , {country}.
 												</p>
 											</div>
-											<div className="address-btn">
-												<button
-													className="btn outlined-default address-edit"
+											<FiMoreVertical />
+											<div className="absolute right-0 px-10 border flex flex-col gap-2 w-32 py-3">
+												<p
+													className="bg-sky-100"
 													onClick={() =>
 														editAddress(
 															_id,
@@ -193,17 +206,17 @@ export function UserProfile() {
 															city,
 															state,
 															country,
-															zipCode,
+															pinCode,
 															mobile
 														)}>
 													Edit
-												</button>
-												<button className="btn outlined-danger address-remove">
+												</p>
+												<p className="bg-sky-100">
 													{/* onClick={() =>
 														removeFromAddress(dataDispatch, _id, token, toast, setFormDisplay)
 													} */}
 													Remove
-												</button>
+												</p>
 											</div>
 										</div>
 								)}
@@ -216,9 +229,7 @@ export function UserProfile() {
 								className="address-add">
 								Add Address
 							</button>
-						</div>
-
-					</div>
+						</div>}
 				</div>
 				{/* <AddressForm
 					addressForm={addressForm}
