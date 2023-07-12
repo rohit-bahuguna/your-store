@@ -8,7 +8,7 @@ import { CiLocationOn } from "react-icons/ci"
 // import { searchFilter } from '../../utils/utils';
 // import { useOutsideClickHandler } from '../../Hooks/outsideClickHandler';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
+import { BiChevronDown } from 'react-icons/bi';
 import { useCartData } from "../../contexts/cartContext/cartContext"
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 import { useProductData } from '../../contexts/productContext/productContext';
@@ -104,12 +104,14 @@ export const Header = () => {
       </div>
 
       <div className='flex items-center gap-10  '>
-        {user.status && <p className='text-center   ' >WELCOME
+        {user.status && 
 
-          <p className='mt-1'>
-            {user?.name}
-          </p>
-        </p>}
+          <Link to="/user-profile">
+            <p className='mt-1 flex items-center hover:text-sky-600'>
+              <span className='first-letter:uppercase '>{user?.name.split(' ')[0]}</span> <BiChevronDown className='inline text-2xl' />
+            </p>
+          </Link>
+        }
 
         <div className='flex   relative items-center gap-8 py-3 '>
 

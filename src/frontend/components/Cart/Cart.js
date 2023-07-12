@@ -21,8 +21,8 @@ export function Cart() {
 
   return (
     <Layout>
-      <div className="">
-        <div className="px-5 relative">
+      <div className="mb-[24vh]">
+        <div className="px-5 relative ">
 
           <div className="flex">
             <div className="flex flex-col gap-5 px-10 justify-center items-center">
@@ -48,7 +48,7 @@ export function Cart() {
                 </div>
               )}
             </div>
-            <div className="fixed top-24 border rounded-xl w-1/4 right-20 ">
+            <div className="fixed top-24 border  rounded-xl w-1/4 right-20 ">
                {isCartHasItem && <CartPrice/>}
            </div>
           </div>

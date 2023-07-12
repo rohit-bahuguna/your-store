@@ -4,7 +4,7 @@ import Header from "./Header";
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex  flex-col gap-5">
       <Header />
       <div className="   border-red-500">
         {children}

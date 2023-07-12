@@ -6,7 +6,7 @@ const Footer = () => {
   const { categories } = useProductData();
   const [style, setStyle] = useState({})
   return (
-    <section className='flex justify-evenly border-t-2 py-3 h-[30vh] bg-[#f6f6f6]  '>
+    <section className=' flex   justify-evenly border-t-2 py-3 h-[30vh] bg-[#f6f6f6]'>
       <div className=' ' >
         <h3 className='mb-3 uppercase font-semibold '>All Categories</h3>
         <div className='flex flex-col gap-2'>

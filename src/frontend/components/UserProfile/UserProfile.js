@@ -5,7 +5,10 @@ import { useAuthData } from '../../contexts/AuthContext/authContext';
 //import { removeFromAddress } from "../../services";
 import { ACTION_TYPE } from '../../utils';
 import { AddressForm } from './AddressForm';
-
+import { CgProfile } from "react-icons/cg"
+import { FaHandsPraying } from "react-icons/fa6"
+import { FiLogOut } from "react-icons/fi"
+import Input from "../custom/Input"
 import { useProductData } from '../../contexts/productContext/productContext';
 import { useCartData } from '../../contexts/cartContext/cartContext';
 import Layout from '../../components/common/Layout';
@@ -87,37 +90,67 @@ export function UserProfile() {
 	changeTitle('My Profile');
 	return (
 		<Layout>
-			<div className="profile-container">
-				<div className="profile-main-container">
-					<h2>Account</h2>
+			<div className="flex gap-10 px-10 w-full mb-36">
+				<div className='w-[20%] flex flex-col gap-5 '>
+					<div className=' py-2 border-2 rounded-xl  flex justify-evenly items-center'>
+						<CgProfile className='text-5xl text-indigo-500' />
+						<div>
+							<p>Namaste  <FaHandsPraying className='inline text-[#ed62fa]' /> ,</p>
+							<p className='text-lg font-semibold'>{name}</p>
+						</div>
+					</div>
+					<div className='border-2 rounded-xl  py-3 px-2'>
+						<h1 className='text-lg mb-2 font-semibold'>ACCOUNT SETTINGS</h1>
+						<div className=' flex flex-col gap-2 px-3'>
+							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>Profile Information</p>
+							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>Manage Addresses</p>
+							<p className=' py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100'>
 
-					<div className="profile-main">
-						<div className="profile-details">
-							<h3 className="details-header">Profile Details</h3>
+								Logout</p>
+						</div>
+					</div>
+				</div>
+				<div className=" grow h-auto border rounded-xl px-5">
+					<div className="flex flex-col gap-3 py-3">
 
-							<div className="profile-details-main">
-								<div className="title">
-									<p>Name</p>
-									<p>Email</p>
-								</div>
-								<div>
-									<p>
-										{name}
-									</p>
-									<p>
-										{' '}{email}
-									</p>
-								</div>
+						<h3 className="text-xl font-semibold self-center">Profile Information</h3>
+						<div className="flex items-center border justify-around  ">
+							<Input
+								inputInfo={{
+
+									label: "Name :",
+									type: "text",
+									callback: () => { },
+									name: "name",
+									value: name,
+									error: { status: false }
+								}}
+								style={"border py-1 px-2"}
+								disabled={true}
+							/>
+
+							<Input
+								inputInfo={{
+
+									label: "Email :",
+									type: "email",
+									callback: () => { },
+									value: email,
+									name: "email",
+									error: { status: false }
+								}}
+								style={"border py-1 px-2"}
+								disabled={true}
+							/>
+
+							<div>
+								<button className='px-5 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '>
+									Edit
+								</button>
 							</div>
 						</div>
-						<div className="">
-							<h3 className="details-header">Account Settings</h3>
-							<button
-								className="btn danger setting-logout"
-								onClick={() => logOutHandler()}>
-								Log Out
-							</button>
-						</div>
+
+
 
 						<div className="">
 							<h3 className="details-header">My Addresses</h3>
@@ -184,15 +217,16 @@ export function UserProfile() {
 								Add Address
 							</button>
 						</div>
+
 					</div>
 				</div>
-				<AddressForm
+				{/* <AddressForm
 					addressForm={addressForm}
 					setAddForm={setAddForm}
 					formDisplay={formDisplay}
 					setFormDisplay={setFormDisplay}
 					formValue={formValue}
-				/>
+				/> */}
 			</div>
 		</Layout>
 	);
