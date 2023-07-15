@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 //import { removeFromAddress } from "../../services";
 import { ACTION_TYPE } from '../../utils';
@@ -15,6 +15,7 @@ import Layout from '../../components/common/Layout';
 
 export function UserProfile() {
 	const navigate = useNavigate();
+	const location = useLocation()
 	const {
 		user: { name, email },
 		token,
@@ -29,7 +30,7 @@ export function UserProfile() {
 		dispatchProductData
 	} = useProductData();
 	const { dispatchCartData } = useCartData();
-	const [check, setChecked] = useState(true);
+	const [open, setOpen] = useState(false);
 	const formValue = {
 		name: '',
 		street: '',
@@ -42,7 +43,7 @@ export function UserProfile() {
 	const [formDisplay, setFormDisplay] = useState(false);
 	const [addressForm, setAddForm] = useState(formValue);
 	const [enableEdit, setEnableEdit] = useState(true)
-	const [display, setDisplay] = useState('info')
+	const [display, setDisplay] = useState(location.state || 'info')
 	const logOutHandler = () => {
 		dispatchAuthData({
 			type: ACTION_TYPE.LOG_OUT
@@ -57,12 +58,6 @@ export function UserProfile() {
 		localStorage.removeItem('user');
 		localStorage.removeItem('signup');
 
-		// // setUser();
-		// // setToken("");
-		// setLoader(true);
-		setTimeout(() => {
-			setLoader(false);
-		}, 500);
 		navigate('/products');
 	};
 	const editAddress = (
@@ -109,13 +104,13 @@ export function UserProfile() {
 							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100 ${display === "address" && 'bg-sky-100'}`}
 								onClick={() => setDisplay('address')}
 							>Manage Addresses</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100`}>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100`} onClick={() => logOutHandler()}>
 
 								Logout</p>
 						</div>
 					</div>
 				</div>
-				<div className=" grow h-auto border rounded-xl px-5">
+				<div className="  grow h-auto border rounded-xl px-5">
 					{display === "info" ? <div className="flex flex-col gap-3 py-3">
 
 						<h3 className="text-xl font-semibold self-center">Profile Information</h3>
@@ -171,7 +166,7 @@ export function UserProfile() {
 							</div>
 						</div>
 					</div> :
-						<div className="flex flex-col py-3">
+						<div className="flex gap-5 flex-col py-3">
 							<h3 className="text-xl font-semibold self-center">My Addresses</h3>
 
 							{addresses &&
@@ -185,7 +180,7 @@ export function UserProfile() {
 										country,
 										pinCode,
 										mobile
-									}) => <div key={_id} className="border relative flex justify-between px-10 py-5">
+									}) => <div key={_id} className="border-b-2 border-gray-500 relative flex justify-between px-10 py-5">
 											<div className='flex flex-col gap-2'>
 												<p>
 													{name} , {street},
@@ -194,10 +189,10 @@ export function UserProfile() {
 													{city}, {state} {pinCode}  , {country}.
 												</p>
 											</div>
-											<FiMoreVertical />
-											<div className="absolute right-0 px-10 border flex flex-col gap-2 w-32 py-3">
+											<FiMoreVertical className='text-xl cursor-pointer' onClick={() => setOpen(true)} />
+											{open && <div className="absolute right-10 rounded x-10 bg-white bottom-2  border flex flex-col  w-32 ">
 												<p
-													className="bg-sky-100"
+													className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 "
 													onClick={() =>
 														editAddress(
 															_id,
@@ -211,24 +206,33 @@ export function UserProfile() {
 														)}>
 													Edit
 												</p>
-												<p className="bg-sky-100">
+												<p className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 ">
 													{/* onClick={() =>
 														removeFromAddress(dataDispatch, _id, token, toast, setFormDisplay)
 													} */}
 													Remove
 												</p>
-											</div>
+												<p className="hover:bg-red-100 hover:text-red-500 hover:cursor-pointer px-5 text-lg border-b-2 py-1 "
+													onClick={() => setOpen(false)}
+												>
+
+													Cancel
+												</p>
+											</div>}
 										</div>
 								)}
 
-							<button
-								onClick={() => {
-									setFormDisplay(true);
-									setAddForm(formValue);
-								}}
-								className="address-add">
-								Add Address
-							</button>
+							<div className='self-center'>
+
+								<button
+									onClick={() => {
+										setFormDisplay(true);
+										setAddForm(formValue);
+									}}
+									className="px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full">
+									Add Address
+								</button>
+							</div>
 						</div>}
 				</div>
 				{/* <AddressForm

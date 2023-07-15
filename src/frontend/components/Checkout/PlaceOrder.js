@@ -85,7 +85,12 @@ const PlaceOrder = ({ setMsg }) => {
     };
     return (
         <div className="text-center" onClick={() => placeOrderHandler()}>
-            <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-2xl">Place Order</button>
+            <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-2xl
+            disabled:bg-gray-300
+            disabled:text-gray-500
+            disabled:border-gray-500"
+                disabled={addresses.length <= 0}
+            >Place Order</button>
         </div>
     )
 }

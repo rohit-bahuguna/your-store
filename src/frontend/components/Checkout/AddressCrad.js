@@ -57,26 +57,17 @@ const AddressCrad = ({ setChangeAddress }) => {
 
             <div className='flex w-full  justify-between'>
 
-                {
-                    addresses.length > 0 ?
-                        <button className="px-5 py-1 rounded-full text-lg border border-indigo-700 text-indigo-700 hover:bg-indigo-100">
+                <Link to="/user-profile" state={"address"}>
+                    <button className="px-5 py-1 rounded-full text-lg border border-indigo-700 text-indigo-700 hover:bg-indigo-100">
 
-                            Add New Address
+                        Add New Address
 
-                        </button> :
-                        <div className="ask-address">
-                            <h2>Please add Your Address </h2>
-                            <h3>To Place The Order</h3>
-                            <Link to="/user-profile">
-                                <button className="px-5 py-1 rounded-full text-lg border-indigo-700 text-indigo-700 hover:bg-indigo-100">
+                    </button>
+                </Link>
 
-                                    Add  Address
 
-                                </button>
-                            </Link>
 
-                        </div>
-                }
+
                 <button className="px-5 py-1 rounded-full text-lg border border-red-500 text-red-500 hover:bg-red-100"
                     onClick={() => setChangeAddress(false)}
                 >

@@ -27,7 +27,7 @@ export function CartProduct({ product }) {
   };
 
   return (
-    <div key={product._id} className="flex  gap-5 border-b ">
+    <div key={product._id} className="flex  gap-5  ">
       <div className=" w-[25%] ">
 
         <Link to={`/product-details/${product.id}`}>
