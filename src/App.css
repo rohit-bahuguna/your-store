@@ -21,3 +21,13 @@ td p {
 	color: rgb(120, 116, 116);
 	margin-left: 1rem;
 }
+
+.btnIndigo {
+	@apply border px-5 py-1  text-indigo-700 rounded-full border-indigo-700 hover:bg-indigo-200
+}
+
+
+
+.btnRed {
+	@apply border px-5 py-1 text-red-500 rounded-full border-red-500 hover:bg-red-100
+}

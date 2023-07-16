@@ -34,7 +34,7 @@ const ProductVerticalCard = ({ product, from = "" }) => {
     };
 
     return (
-        <div key={product._id} className="flex  gap-5  ">
+        <div key={product._id} className="flex  hover:shadow-lg px-5 hover:border rounded-xl gap-5  ">
             <div className=" w-[25%] ">
 
                 <Link to={`/product-details/${product.id}`}>
@@ -72,27 +72,27 @@ const ProductVerticalCard = ({ product, from = "" }) => {
                 <div className="flex gap-10 mt-5">
                     {
                         from === "" ? <>
-                            <button className="border px-5 py-1 text-red-500 rounded-full border-red-500 hover:bg-red-100" onClick={() => {
+                            <button className="btnRed" onClick={() => {
                                 removeProductFromCart(product._id, token);
                             }}
                             >
                                 REMOVE
                             </button>
-                            <button className="border px-5 py-1 text-indigo-700 rounded-full border-indigo-700 hover:bg-indigo-200" onClick={() =>
+                            <button className="btnIndigo" onClick={() =>
                                 (isInWishlist ? navigate("/wishlist") : moveToWishlistFromCart())}
                             >
                                 {isInWishlist ? "ALREADY IN WISHLIST" : "MOVE TO WISHLIST"}
                             </button>
                         </> : <>
-                            <button className="border px-5 py-1 text-red-500 rounded-full border-red-500 hover:bg-red-100" onClick={() => {
+                                <button className="btnRed" onClick={() => {
                                 removeProductFromWishlist(product._id, token)
                             }}
                             >
                                 REMOVE
                             </button>
-                            <button className="border px-5 py-1 text-indigo-700 rounded-full border-indigo-700 hover:bg-indigo-200" onClick={() => (isInCart ? navigate("/cart") : moveToCartHandler())}
+                                <button className="btnIndigo" onClick={() => (isInCart ? navigate("/cart") : moveToCartHandler())}
                             >
-                                {isInCart ? "Already in Cart" : "Move to Cart"}
+                                    {isInCart ? "View in Cart" : "Move to Cart"}
                             </button>
                         </>
                     }

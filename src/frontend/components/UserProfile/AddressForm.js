@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
+import Input from '../custom/Input';
 
 export function AddressForm({
-	addressForm,
-	setAddForm,
+
+
 	formDisplay,
 	setFormDisplay,
-	formValue
+
 }) {
 	const {
 		token,
@@ -17,10 +18,21 @@ export function AddressForm({
 		updateUsersAddress
 	} = useAuthData();
 
-	const fillFormValue = (event, fieldName) => {
-		const { value } = event.target;
-		setAddForm(prev => ({ ...prev, [fieldName]: value }));
+	const fillFormValue = (event) => {
+		const { value, name } = event.target;
+		setAddForm(prev => ({ ...prev, [name]: value }));
 	};
+
+	const formValue = {
+		name: '',
+		street: '',
+		city: '',
+		state: '',
+		country: '',
+		pinCode: '',
+		mobile: ''
+	};
+	const [addressForm, setAddForm] = useState(formValue);
 
 	const cancelForm = e => {
 		e.preventDefault();
@@ -48,89 +60,113 @@ export function AddressForm({
 
 	return (
 		<div
-			className={`address-form-container flex-center ${!formDisplay
+			className={`flex h-screen  justify-center w-full   ${!formDisplay
 				? 'displayNone'
 				: 'displayFlex'}`}>
-			<form className="address-form" onSubmit={e => saveHandler(e)}>
-				<h4>ADD NEW ADDRESS</h4>
-				<div className="form-input">
-					<input
-						placeholder="Enter Name"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.name}
-						onChange={e => fillFormValue(e, 'name')}
-						required
-					/>
-					<input
-						placeholder="Enter House No. , Road , Colony"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.street}
-						onChange={e => fillFormValue(e, 'street')}
-						required
-					/>
-					<input
-						placeholder="Enter City"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.city}
-						onChange={e => fillFormValue(e, 'city')}
-						required
-					/>
-					<input
-						placeholder="Enter State"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.state}
-						onChange={e => fillFormValue(e, 'state')}
-						required
-					/>
-					<input
-						placeholder="Enter Country"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.country}
-						onChange={e => fillFormValue(e, 'country')}
-						required
-					/>
-					<input
-						placeholder="Enter Postal Code"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.zipCode}
-						onChange={e => fillFormValue(e, 'zipCode')}
-						required
-					/>
-					<input
-						placeholder="Enter Mobile Number"
-						className="text-input address-form-input"
-						type="text"
-						value={addressForm.mobile}
-						onChange={e => fillFormValue(e, 'mobile')}
-						required
-					/>
+
+
+
+			<div className='flex flex-col gap-3 w-1/3'>
+				<h4 className='text-xl self-center font-semibold'>ADD NEW ADDRESS</h4>
+				<Input inputInfo={{
+					label: "Name",
+					type: "text",
+					value: addressForm.name,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+				<Input inputInfo={{
+					label: "Street",
+					type: "text",
+					value: addressForm.street,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+
+				<Input inputInfo={{
+					label: "City",
+					type: "text",
+					value: addressForm.city,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+
+				<Input inputInfo={{
+					label: "State",
+					type: "text",
+					value: addressForm.state,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+				<Input inputInfo={{
+					label: "Country",
+					type: "text",
+					value: addressForm.country,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+
+				<Input inputInfo={{
+					label: "	Pincode",
+					type: "number",
+					value: addressForm.pinCode,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+				<Input inputInfo={{
+					label: "Mobile Number",
+					type: "text",
+					value: addressForm.mobile,
+					callback: fillFormValue,
+					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+				<div className="flex justify-evenly mt-5">
+
+
+					<button className='btnIndigo'>Save</button>
+					<button className='btnRed'
+						onClick={() => setFormDisplay(false)}
+					>Cancel</button>
+
 				</div>
-				<div className="address-form-btn">
-					<input
-						className="btn link-btn address-save"
-						type="submit"
-						value="Save"
-					/>
-					<input
-						type="reset"
-						className="btn danger address-cancel"
-						onClick={e => cancelForm(e)}
-						value="Cancel"
-					/>
-					<input
-						type="submit"
-						className="btn default address-cancel"
-						onClick={e => fillFormValueWithDummy(e)}
-						value="Fill with Dummy Values"
-					/>
-				</div>
-			</form>
+			</div>
+
+
 		</div>
 	);
 }

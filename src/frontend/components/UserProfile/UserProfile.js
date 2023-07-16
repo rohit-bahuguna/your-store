@@ -31,17 +31,9 @@ export function UserProfile() {
 	} = useProductData();
 	const { dispatchCartData } = useCartData();
 	const [open, setOpen] = useState(false);
-	const formValue = {
-		name: '',
-		street: '',
-		city: '',
-		state: '',
-		country: '',
-		pinCode: '',
-		mobile: ''
-	};
+
 	const [formDisplay, setFormDisplay] = useState(false);
-	const [addressForm, setAddForm] = useState(formValue);
+
 	const [enableEdit, setEnableEdit] = useState(true)
 	const [display, setDisplay] = useState(location.state || 'info')
 	const logOutHandler = () => {
@@ -60,33 +52,33 @@ export function UserProfile() {
 
 		navigate('/products');
 	};
-	const editAddress = (
-		_id,
-		name,
-		street,
-		city,
-		state,
-		country,
-		pinCode,
-		mobile
-	) => {
-		setFormDisplay(true);
-		setAddForm(form => ({
-			...form,
-			_id,
-			name,
-			street,
-			city,
-			state,
-			country,
-			pinCode,
-			mobile
-		}));
-	};
+	// const editAddress = (
+	// 	_id,
+	// 	name,
+	// 	street,
+	// 	city,
+	// 	state,
+	// 	country,
+	// 	pinCode,
+	// 	mobile
+	// ) => {
+	// 	setFormDisplay(true);
+	// 	setAddForm(form => ({
+	// 		...form,
+	// 		_id,
+	// 		name,
+	// 		street,
+	// 		city,
+	// 		state,
+	// 		country,
+	// 		pinCode,
+	// 		mobile
+	// 	}));
+	// };
 	changeTitle('My Profile');
 	return (
 		<Layout>
-			<div className="flex gap-10 px-10 w-full mb-36">
+			<div className="flex  gap-10  w-full mb-36 relative">
 				<div className='w-[20%] flex flex-col gap-5 '>
 					<div className=' py-2 border-2 rounded-xl  flex justify-evenly items-center'>
 						<CgProfile className='text-5xl text-indigo-500' />
@@ -193,17 +185,18 @@ export function UserProfile() {
 											{open && <div className="absolute right-10 rounded x-10 bg-white bottom-2  border flex flex-col  w-32 ">
 												<p
 													className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 "
-													onClick={() =>
-														editAddress(
-															_id,
-															name,
-															street,
-															city,
-															state,
-															country,
-															pinCode,
-															mobile
-														)}>
+												// onClick={() =>
+												// 	editAddress(
+												// 		_id,
+												// 		name,
+												// 		street,
+												// 		city,
+												// 		state,
+												// 		country,
+												// 		pinCode,
+												// 		mobile
+												// 	)}
+												>
 													Edit
 												</p>
 												<p className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 ">
@@ -227,21 +220,23 @@ export function UserProfile() {
 								<button
 									onClick={() => {
 										setFormDisplay(true);
-										setAddForm(formValue);
+										//setAddForm(formValue);
 									}}
-									className="px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full">
-									Add Address
+									className="btnIndigo text-lg">
+									Add Address 
 								</button>
 							</div>
 						</div>}
 				</div>
-				{/* <AddressForm
-					addressForm={addressForm}
-					setAddForm={setAddForm}
-					formDisplay={formDisplay}
-					setFormDisplay={setFormDisplay}
-					formValue={formValue}
-				/> */}
+				{formDisplay && <div className='absolute   w-full bg-[#ffff] '>
+					<AddressForm
+
+						//	setAddForm={setAddForm}
+						formDisplay={formDisplay}
+						setFormDisplay={setFormDisplay}
+					//formValue={formValue}
+					/>
+				</div>}
 			</div>
 		</Layout>
 	);

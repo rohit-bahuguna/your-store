@@ -104,7 +104,7 @@ export const Header = () => {
       </div>
 
       <div className='flex items-center gap-10  '>
-        {user.status && 
+        {user.status &&
 
           <Link to="/user-profile">
             <p className='mt-1 flex items-center hover:text-sky-600'>
@@ -113,29 +113,29 @@ export const Header = () => {
           </Link>
         }
 
-        <div className='flex   relative items-center gap-8 py-3 '>
+        <div className='flex   relative items-center gap-10 py-3 '>
 
-          <div className=' '>
-            <Link to="/wishlist">
-              <AiOutlineHeart className='text-3xl hover:text-sky-500 ' />
-            </Link>
+
+          <Link to="/wishlist">
+            <AiOutlineHeart className='text-3xl hover:text-sky-500 ' />
+
             {
-              wishlist.length > 0 && <div className='text-white  absolute top-2 left-5 bg-black hover:bg-sky-500 text-lg rounded-full text-center w-8 h-7 m-1  '>{wishlist.length}</div>
-            }
-          </div>
-
-
-          <div className=''>
-            <Link to="/cart">
-              <AiOutlineShoppingCart className='text-3xl hover:text-sky-500 ' />
-            </Link>
-            {
-              cart.length > 0 && <div className='text-white  absolute top-2 left-20 m-1 bg-black hover:bg-sky-500 text-lg rounded-full text-center w-8 h-7 '>{cart.length}</div>
+              wishlist.length > 0 && <div className='text-white  absolute top-2 left-5  bg-sky-500 text-lg rounded-full text-center w-8 h-7 m-1  '>{wishlist.length}</div>
             }
 
-          </div>
+          </Link>
 
-          {user.status ? <button className='text-xl border shadow px-5 py-1 rounded-full   hover:bg-sky-500' onClick={() => {
+
+          <Link to="/cart">
+            <AiOutlineShoppingCart className='text-3xl hover:text-sky-500 ' />
+
+            {
+              cart.length > 0 && <div className='text-white  absolute top-2 left-20 m-1  bg-sky-500 text-lg rounded-full text-center w-8 h-7 '>{cart.length}</div>
+            }
+
+          </Link>
+
+          {user.status ? <button className='btnRed' onClick={() => {
             dispatchProductData({
               type: ACTION_TYPE.LOG_OUT
             })
@@ -146,7 +146,7 @@ export const Header = () => {
 
           }}
 
-          >Logout</button> : <Link to="/login"><button className='text-xl border shadow px-5 py-1 rounded-full   hover:bg-sky-500'>Login</button></Link>}
+          >Logout</button> : <Link to="/login"><button className='btnIndigo'>Login</button></Link>}
         </div>
       </div>
     </nav>

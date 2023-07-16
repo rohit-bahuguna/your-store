@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useProductData } from '../../contexts/productContext/productContext';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { ACTION_TYPE } from '../../utils';
+import { ACTION_TYPE, filterDataByCatagory } from '../../utils';
 import PrivateRoute from '../Auth/PrivateRoute';
+import HorizontalProductsBar from '../common/HorizontalProductsBar';
 
 const HomePage = () => {
-  const { categories, dispatchProductData } = useProductData();
+  const { categories, products, dispatchProductData } = useProductData();
 
   const navigate = useNavigate();
   const categoryFilter = () => { };
@@ -28,6 +29,8 @@ const HomePage = () => {
   return (
     <Layout>
       <div className=" flex flex-col gap-3 ">
+
+        {/* main banner image */}
         <div className="hover:cursor-pointer">
           <img
             onClick={() => navigate('/products')}
@@ -36,6 +39,8 @@ const HomePage = () => {
             alt="home-image"
           />
         </div>
+
+        {/* categories bar */}
         <div className=" w-full gap-3  px-1 flex ">
           {categories.map(({ categoryName, _id, id, banner }) => {
             return (
@@ -55,6 +60,8 @@ const HomePage = () => {
             );
           })}
         </div>
+
+        {/* Carousel bar */}
         <div >
           <Carousel
             showArrows={true}
@@ -76,6 +83,30 @@ const HomePage = () => {
               })
             }
           </Carousel>
+        </div>
+
+        {/* category wise product  bar */}
+
+        <div className='flex flex-col gap-5'>
+          {categories.map(({ categoryName, _id }) => {
+
+            const filteredProducts = filterDataByCatagory(products, categoryName)
+            if (filteredProducts.length > 0) {
+              filteredProducts.length = 5
+              return (
+                <div
+                  key={_id}
+                  className='px-5'
+                >
+                  <h1 className='px-2 text-2xl font-semibold mb-3'>{categoryName}</h1>
+
+                  <HorizontalProductsBar products={filteredProducts} />
+
+                </div>
+              );
+            }
+
+          })}
         </div>
       </div>
     </Layout>
