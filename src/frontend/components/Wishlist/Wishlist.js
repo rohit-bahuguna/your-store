@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useWishlistData } from "../../contexts/wishlistContext";
-import WishlistCard from "./WishlistCard";
-
 import { useProductData } from "../../contexts/productContext/productContext";
 import Layout from "../common/Layout";
 import { Link } from "react-router-dom";
 import { useCartData } from "../../contexts/cartContext/cartContext";
+import ProductVerticalCard from "../common/ProductVerticalCard";
 export function Wishlist() {
   const { wishlist } = useWishlistData();
   const { cart } = useCartData()
@@ -22,9 +21,10 @@ export function Wishlist() {
             <div className="wishlist-manage">
               <div className="wishlist">
                 {wishlist.map((product) => (
-                  <WishlistCard
+                  <ProductVerticalCard
                     key={product._id}
                     product={product}
+                    from={"wishlist"}
 
                   />
                 ))}

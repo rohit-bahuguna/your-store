@@ -1,15 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-
 import { CartPrice } from "./CartPrice";
-import { CartProduct } from "./CartProduct";
-import { CouponModal } from "./CouponModal";
 import { useProductData } from "../../contexts/productContext/productContext";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import Layout from "../common/Layout";
 import { Link } from "react-router-dom";
 import { useWishlistData } from "../../contexts/wishlistContext";
+import ProductVerticalCard from "../common/ProductVerticalCard";
 
 export function Cart() {
   const { cart } = useCartData();
@@ -27,7 +25,7 @@ export function Cart() {
           <div className="flex">
             <div className="flex w-full flex-col gap-5 px-10 justify-center items-">
               {isCartHasItem ? (
-                cart.map((product) => <CartProduct key={product._id} product={product} />)
+                cart.map((product) => <ProductVerticalCard key={product._id} product={product} />)
               ) : (
                   <div className="flex flex-col text-lg  items-center justify-center ">
                     <h2 className="font-semibold" > Your Cart Is Empty</h2>
