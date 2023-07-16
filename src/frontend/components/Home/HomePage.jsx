@@ -92,7 +92,7 @@ const HomePage = () => {
 
             const filteredProducts = filterDataByCatagory(products, categoryName)
             if (filteredProducts.length > 0) {
-              filteredProducts.length = 5
+              filteredProducts.length = 4
               return (
                 <div
                   key={_id}

@@ -78,7 +78,7 @@ export function UserProfile() {
 	changeTitle('My Profile');
 	return (
 		<Layout>
-			<div className="flex  gap-10  w-full mb-36 relative">
+			<div className="flex px-10 gap-10  w-full mb-36 relative">
 				<div className='w-[20%] flex flex-col gap-5 '>
 					<div className=' py-2 border-2 rounded-xl  flex justify-evenly items-center'>
 						<CgProfile className='text-5xl text-indigo-500' />
