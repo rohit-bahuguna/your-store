@@ -9,13 +9,14 @@ export const initialState = {
 
 export function authReducer(state, action) {
     const { type, payload } = action;
+
     switch (type) {
 
         case ACTION_TYPE.INITIAl_ADDRESS:
             return { ...state, addresses: [...payload] };
 
         case ACTION_TYPE.SET_ADDRESS:
-            return { ...state, addresses: [...state.addresses, payload] };
+            return { ...state, addresses: payload };
         case ACTION_TYPE.SET_TOKEN:
             return { ...state, token: payload, }
         case ACTION_TYPE.SET_USER: {

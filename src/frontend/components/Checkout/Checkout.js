@@ -33,14 +33,18 @@ export function Checkout() {
     changeTitle("Checkout");
   }, []);
 
+
+  useEffect(() => {
+    if (msg) {
+      navigate('/order-summary')
+    }
+  }, [msg])
+
   return (
     <Layout>
       <div className=" mb-52">
         {msg ? (
           <div>
-            <h1 className="checkout-main-container ">
-              🥂 You order has successfully placed
-            </h1>
             <OrderSummary />
           </div>
         ) : (

@@ -12,6 +12,8 @@ import Input from "../custom/Input"
 import { useProductData } from '../../contexts/productContext/productContext';
 import { useCartData } from '../../contexts/cartContext/cartContext';
 import Layout from '../../components/common/Layout';
+import AddressCard from './AddressCard';
+import { OrderSummary } from '../OrderSummary/OrderSummary';
 
 export function UserProfile() {
 	const navigate = useNavigate();
@@ -30,11 +32,14 @@ export function UserProfile() {
 		dispatchProductData
 	} = useProductData();
 	const { dispatchCartData } = useCartData();
-	const [open, setOpen] = useState(false);
+	// const {
+	// 	order: { amount, paymentId, delivery, products },
+	// } = useOrderData();
 
-	const [formDisplay, setFormDisplay] = useState(false);
-
-	const [enableEdit, setEnableEdit] = useState(true)
+	const [formDisplay, setFormDisplay] = useState({
+		status: false,
+		id: ""
+	});
 	const [display, setDisplay] = useState(location.state || 'info')
 	const logOutHandler = () => {
 		dispatchAuthData({
@@ -52,29 +57,7 @@ export function UserProfile() {
 
 		navigate('/products');
 	};
-	// const editAddress = (
-	// 	_id,
-	// 	name,
-	// 	street,
-	// 	city,
-	// 	state,
-	// 	country,
-	// 	pinCode,
-	// 	mobile
-	// ) => {
-	// 	setFormDisplay(true);
-	// 	setAddForm(form => ({
-	// 		...form,
-	// 		_id,
-	// 		name,
-	// 		street,
-	// 		city,
-	// 		state,
-	// 		country,
-	// 		pinCode,
-	// 		mobile
-	// 	}));
-	// };
+
 	changeTitle('My Profile');
 	return (
 		<Layout>
@@ -90,20 +73,23 @@ export function UserProfile() {
 					<div className='border-2 rounded-xl  py-3 px-2'>
 						<h1 className='text-lg mb-2 font-semibold'>ACCOUNT SETTINGS</h1>
 						<div className=' flex flex-col gap-2 px-3'>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100 ${display === "info" && 'bg-sky-100'}`}
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "info" && 'changeColor'}`}
 								onClick={() => setDisplay('info')}
 							>Profile Information</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100 ${display === "address" && 'bg-sky-100'}`}
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "address" && 'changeColor '}`}
 								onClick={() => setDisplay('address')}
 							>Manage Addresses</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-sky-100`} onClick={() => logOutHandler()}>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "order" && 'changeColor '}`}
+								onClick={() => setDisplay('order')}
+							>Orders</p>
+							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100`} onClick={() => logOutHandler()}>
 
 								Logout</p>
 						</div>
 					</div>
 				</div>
 				<div className="  grow h-auto border rounded-xl px-5">
-					{display === "info" ? <div className="flex flex-col gap-3 py-3">
+					{display === "info" && <div className="flex flex-col gap-3 py-3">
 
 						<h3 className="text-xl font-semibold self-center">Profile Information</h3>
 						<div className="flex items-center  justify-around  ">
@@ -118,7 +104,7 @@ export function UserProfile() {
 									error: { status: false }
 								}}
 								style={"border py-1 px-2 disabled:bg-gray-200"}
-								disabled={enableEdit}
+								disabled={true}
 							/>
 
 							<Input
@@ -132,94 +118,25 @@ export function UserProfile() {
 									error: { status: false }
 								}}
 								style={"border py-1 px-2 disabled:bg-gray-200"}
-								disabled={enableEdit}
+								disabled={true}
 							/>
 
-							<div className='mt-5'>
-								{enableEdit ?
-									<button className='px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '
-										onClick={() => setEnableEdit(false)}
-									>
-										Edit
-									</button> :
-									<div className='flex gap-5'>
-										<button className='px-6 py-1 border-indigo-700 text-indigo-700 hover:bg-indigo-100 border text-lg rounded-full '
-
-										>
-											Save
-										</button>
-										<button className='px-6 py-1 border-red-500 text-red-500 hover:bg-red-100 border text-lg rounded-full '
-											onClick={() => setEnableEdit(true)}
-										>
-											Cancel
-										</button>
-									</div>
-								}
-							</div>
 						</div>
-					</div> :
-						<div className="flex gap-5 flex-col py-3">
+					</div>}
+					{
+						display === "address" && <div className="flex gap-5 flex-col py-3">
 							<h3 className="text-xl font-semibold self-center">My Addresses</h3>
 
 							{addresses &&
 								addresses.map(
-									({
-										_id,
-										name,
-										street,
-										city,
-										state,
-										country,
-										pinCode,
-										mobile
-									}) => <div key={_id} className="border-b-2 border-gray-500 relative flex justify-between px-10 py-5">
-											<div className='flex flex-col gap-2'>
-												<p>
-													{name} , {street},
-												</p>
-												<p>
-													{city}, {state} {pinCode}  , {country}.
-												</p>
-											</div>
-											<FiMoreVertical className='text-xl cursor-pointer' onClick={() => setOpen(true)} />
-											{open && <div className="absolute right-10 rounded x-10 bg-white bottom-2  border flex flex-col  w-32 ">
-												<p
-													className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 "
-												// onClick={() =>
-												// 	editAddress(
-												// 		_id,
-												// 		name,
-												// 		street,
-												// 		city,
-												// 		state,
-												// 		country,
-												// 		pinCode,
-												// 		mobile
-												// 	)}
-												>
-													Edit
-												</p>
-												<p className="hover:bg-indigo-100 hover:cursor-pointer hover:text-indigo-700 px-5 text-lg border-b-2 py-1 ">
-													{/* onClick={() =>
-														removeFromAddress(dataDispatch, _id, token, toast, setFormDisplay)
-													} */}
-													Remove
-												</p>
-												<p className="hover:bg-red-100 hover:text-red-500 hover:cursor-pointer px-5 text-lg border-b-2 py-1 "
-													onClick={() => setOpen(false)}
-												>
-
-													Cancel
-												</p>
-											</div>}
-										</div>
+									(address) => <AddressCard key={address._id} address={address} setFormDisplay={setFormDisplay} formDisplay={formDisplay} />
 								)}
 
 							<div className='self-center'>
 
 								<button
 									onClick={() => {
-										setFormDisplay(true);
+										setFormDisplay({ id: "", status: true });
 										//setAddForm(formValue);
 									}}
 									className="btnIndigo text-lg">
@@ -227,14 +144,17 @@ export function UserProfile() {
 								</button>
 							</div>
 						</div>}
-				</div>
-				{formDisplay && <div className='absolute   w-full bg-[#ffff] '>
-					<AddressForm
 
-						//	setAddForm={setAddForm}
+					{
+						display === "order" && <div>
+							<OrderSummary />
+						</div>
+					}
+				</div>
+				{formDisplay.status && <div className='absolute   w-full bg-[#ffff] '>
+					<AddressForm
 						formDisplay={formDisplay}
 						setFormDisplay={setFormDisplay}
-					//formValue={formValue}
 					/>
 				</div>}
 			</div>

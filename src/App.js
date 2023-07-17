@@ -35,6 +35,8 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-summary" element={<OrderSummary />} />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/order-summary" element={<OrderSummary />} />
+
         </Route>
       </Routes>
     </>

@@ -1,12 +1,7 @@
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-// import { useAuthData } from '../../contexts/auth-context';
-// import { useData } from '../../contexts/data-context';
-// import { ActionType, Filters } from '../../DataReducer/constants';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { CiLocationOn } from "react-icons/ci"
-// import { searchFilter } from '../../utils/utils';
-// import { useOutsideClickHandler } from '../../Hooks/outsideClickHandler';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiChevronDown } from 'react-icons/bi';
 import { useCartData } from "../../contexts/cartContext/cartContext"
@@ -15,34 +10,43 @@ import { useProductData } from '../../contexts/productContext/productContext';
 import { ACTION_TYPE } from '../../utils';
 import { useWishlistData } from '../../contexts/wishlistContext';
 import Logo from './Logo';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+
 export const Header = () => {
-  const location = useLocation();
   const { cart } = useCartData()
   const { wishlist } = useWishlistData()
-  const { dispatchProductData } = useProductData()
+  const { dispatchProductData, products } = useProductData()
   const [searchInput, setSearchInput] = useState('');
   const [searchData, setSearchData] = useState([]);
   const { user, dispatchAuthData, addresses } = useAuthData()
   const navigate = useNavigate();
   const [showSearchOutputModal, setShowOutputModal] = useState(false);
-  let timer = useRef();
 
+  const searchProducts = () => {
+    setShowOutputModal(true)
+    const searchedProduct = products.filter(({ title }) => title.toLowerCase().includes(searchInput.toLowerCase()))
+    setSearchData(searchedProduct)
+
+  }
+
+  const resetSearch = () => {
+    setSearchInput('')
+    setShowOutputModal(false)
+  }
+
+  const modalRef = useRef()
+  useOutsideClick(modalRef, resetSearch)
 
 
   useEffect(() => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      dispatchProductData({
-        type: ACTION_TYPE.SEARCH,
-        payload: searchInput,
-      });
-      // setLoader(true);
-      // setTimeout(() => setLoader(false), 500);
-      if (searchInput.trim().length > 0) {
-        navigate("/products");
-      }
-    }, 1000);
+    if (searchInput) {
+      searchProducts()
+    } else {
+      setSearchData([])
+    }
+
   }, [searchInput]);
+
 
   return (
     <nav className="flex border-b w-full h-[10vh] shadow  gap-20 justify-evenly items-center sticky top-0 bg-white z-10">
@@ -68,39 +72,41 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className='w-[30%]'>
-        <input type="text" className='px-2 py-2 border w-full rounded text-lg' placeholder='Search Here' onChange={(e) => setSearchInput(e.target.value)
-        } value={searchInput} />
-        {showSearchOutputModal ? (
-          <div className='nav-search-output-container '>
+      <div className='w-[30%] relative '>
+        <input type="text" className='px-2 py-2 border w-full rounded text-lg' placeholder='Search Here' onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
+        {showSearchOutputModal &&
+          <div className='flex max-h-[50vh] overflow-y-scroll flex-col gap-3 bg-white absolute w-full rounded-b-xl border-x border-b px-2   py-2  ' ref={modalRef}>
             {searchData.length === 0 ? (
-              <p className='text-align-center'>No item to show</p>
+              <p className='text-center text-lg'>No item to show</p>
             ) : (
-              searchData.map((el) => {
+                searchData.map(({ id, title, price, image }) => {
                 return (
                   <div
-                    onClick={() => navigate(`product/${el._id}`)}
-                    className='nav-search-output-item'
+                    onClick={() => {
+                      setShowOutputModal(false)
+                      setSearchInput('')
+                      navigate(`/product-details/${id}`, { replace: true })
+                    }}
+                    className='flex justify-between items-center px-2 py-1 changeColorOnHover rounded border'
                   >
                     <img
-                      className='nav-output-smaller-img'
-                      src={el.image}
+                      className='w-10 h-auto filter mix-blend-multiply   '
+                      src={image}
                       alt='nav search img'
                     />
-                    <div className='nav-search-output-item-details'>
-                      <div className='nav-search-output-item-upper nav-search-output-item-upper-smaller'>
-                        <p className='text-lg font-wt-semibold'>{el.title}</p>
+                    <div className='  w-[80%] flex justify-between px-5'>
 
-                        <p className='font-wt-md'>₹ {el.price}</p>
-                      </div>
-                      <div className='nav-search-output-item-desc'></div>
+                      <p className='text-lg font-wt-semibold'>{title}</p>
+
+                      <p className='font-wt-md'>₹ {price}</p>
+
                     </div>
                   </div>
                 );
               })
             )}
           </div>
-        ) : null}
+        }
       </div>
 
       <div className='flex items-center gap-10  '>

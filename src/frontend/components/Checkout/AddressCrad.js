@@ -29,6 +29,7 @@ const AddressCrad = ({ setChangeAddress }) => {
                                             payload: {
                                                 _id,
                                                 name,
+                                                houseNumber,
                                                 street,
                                                 city,
                                                 state,
@@ -72,7 +73,7 @@ const AddressCrad = ({ setChangeAddress }) => {
                     onClick={() => setChangeAddress(false)}
                 >
 
-                    Cancel
+                    Close
 
                 </button>
             </div>

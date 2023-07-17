@@ -1,29 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 import Input from '../custom/Input';
 
-export function AddressForm({
+export function AddressForm({ formDisplay, setFormDisplay }) {
 
-
-	formDisplay,
-	setFormDisplay,
-
-}) {
 	const {
 		token,
 		dispatchAuthData,
 		addUsersAddress,
 		removeUsersAddress,
-		updateUsersAddress
+		updateUsersAddress,
+		addresses
 	} = useAuthData();
 
-	const fillFormValue = (event) => {
-		const { value, name } = event.target;
-		setAddForm(prev => ({ ...prev, [name]: value }));
+	const getAddressData = (e) => {
+		const { value, name } = e.target;
+		if (name === 'pinCode') {
+			value.toString().length <= 6 && setAddForm(prev => ({ ...prev, [name]: value }));
+			//console.log(value.toString().length)
+		}
+		else if (name === 'mobile') {
+			value.toString().length <= 10 && setAddForm(prev => ({ ...prev, [name]: value }));
+
+		} else {
+			setAddForm(prev => ({ ...prev, [name]: value }));
+		}
 	};
 
 	const formValue = {
+		houseNumber: '',
 		name: '',
 		street: '',
 		city: '',
@@ -34,35 +40,48 @@ export function AddressForm({
 	};
 	const [addressForm, setAddForm] = useState(formValue);
 
-	const cancelForm = e => {
+	const cancelHandler = e => {
 		e.preventDefault();
-		setFormDisplay(false);
 		setAddForm(formValue);
+		setFormDisplay({ ...formDisplay, status: false })
+
 	};
 
-	const fillFormValueWithDummy = e => {
+	const fillDummyData = e => {
 		e.preventDefault();
 		setAddForm(form => ({
 			...form,
-			name: 'Admin',
-			street: '33 , MG Road',
-			city: 'Pune',
-			state: 'Maharashtra',
+			houseNumber: 32,
+			name: 'dummy',
+			street: 'dummy Road',
+			city: 'Haldwani',
+			state: 'Uttarakhand',
 			country: 'India',
-			zipCode: '411046',
-			mobile: '12345678'
+			pinCode: 263232,
+			mobile: 1254254624
 		}));
 	};
 
-	const saveHandler = e => {
+	const saveAddress = e => {
 		e.preventDefault();
+		addUsersAddress(addressForm)
+		setFormDisplay({ ...formDisplay, status: false })
+
 	};
+
+	useEffect(() => {
+
+		if (formDisplay.id) {
+			const currentAddress = addresses.filter(({ _id }) => _id === formDisplay.id)
+			setAddForm({ ...currentAddress[0] })
+		}
+
+	}, [formDisplay.id])
+
 
 	return (
 		<div
-			className={`flex h-screen  justify-center w-full   ${!formDisplay
-				? 'displayNone'
-				: 'displayFlex'}`}>
+			className={`flex h-screen  justify-center w-full   }`}>
 
 
 
@@ -72,8 +91,20 @@ export function AddressForm({
 					label: "Name",
 					type: "text",
 					value: addressForm.name,
-					callback: fillFormValue,
+					callback: getAddressData,
 					name: "name",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
+
+				<Input inputInfo={{
+					label: "House Number",
+					type: "number",
+					value: addressForm.houseNumber,
+					callback: getAddressData,
+					name: "houseNumber",
 					error: { error: "", status: false }
 
 				}}
@@ -84,8 +115,8 @@ export function AddressForm({
 					label: "Street",
 					type: "text",
 					value: addressForm.street,
-					callback: fillFormValue,
-					name: "name",
+					callback: getAddressData,
+					name: "street",
 					error: { error: "", status: false }
 
 				}}
@@ -97,8 +128,8 @@ export function AddressForm({
 					label: "City",
 					type: "text",
 					value: addressForm.city,
-					callback: fillFormValue,
-					name: "name",
+					callback: getAddressData,
+					name: "city",
 					error: { error: "", status: false }
 
 				}}
@@ -106,37 +137,38 @@ export function AddressForm({
 				/>
 
 
-				<Input inputInfo={{
-					label: "State",
-					type: "text",
-					value: addressForm.state,
-					callback: fillFormValue,
-					name: "name",
-					error: { error: "", status: false }
 
-				}}
-					style={"py-1 px-2 rounded border border-gray-400 "}
-				/>
 
 				<Input inputInfo={{
 					label: "Country",
 					type: "text",
 					value: addressForm.country,
-					callback: fillFormValue,
-					name: "name",
+					callback: getAddressData,
+					name: "country",
 					error: { error: "", status: false }
 
 				}}
 					style={"py-1 px-2 rounded border border-gray-400 "}
 				/>
 
+				<Input inputInfo={{
+					label: "State",
+					type: "text",
+					value: addressForm.state,
+					callback: getAddressData,
+					name: "state",
+					error: { error: "", status: false }
+
+				}}
+					style={"py-1 px-2 rounded border border-gray-400 "}
+				/>
 
 				<Input inputInfo={{
 					label: "	Pincode",
 					type: "number",
 					value: addressForm.pinCode,
-					callback: fillFormValue,
-					name: "name",
+					callback: getAddressData,
+					name: "pinCode",
 					error: { error: "", status: false }
 
 				}}
@@ -147,8 +179,8 @@ export function AddressForm({
 					label: "Mobile Number",
 					type: "text",
 					value: addressForm.mobile,
-					callback: fillFormValue,
-					name: "name",
+					callback: getAddressData,
+					name: "mobile",
 					error: { error: "", status: false }
 
 				}}
@@ -158,9 +190,16 @@ export function AddressForm({
 				<div className="flex justify-evenly mt-5">
 
 
-					<button className='btnIndigo'>Save</button>
+
+					{
+						!formDisplay.id ? <button className='btnIndigo' onClick={saveAddress}>Save</button> : <button className='btnIndigo' onClick={() => {
+							updateUsersAddress(addressForm, token)
+							setFormDisplay({ status: false, id: "" })
+						}}>Update</button>
+					}
+					<button className='btnIndigo' onClick={fillDummyData}>Fill Dummy Data</button>
 					<button className='btnRed'
-						onClick={() => setFormDisplay(false)}
+						onClick={cancelHandler}
 					>Cancel</button>
 
 				</div>

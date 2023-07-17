@@ -31,3 +31,10 @@ td p {
 .btnRed {
 	@apply border px-5 py-1 text-red-500 rounded-full border-red-500 hover:bg-red-100
 }
+
+.changeColor {
+	@apply bg-indigo-100 text-indigo-700
+}
+.changeColorOnHover:hover{
+	@apply bg-indigo-100 text-indigo-700
+}

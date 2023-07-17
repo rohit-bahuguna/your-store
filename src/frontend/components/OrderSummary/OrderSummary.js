@@ -16,20 +16,20 @@ export function OrderSummary() {
     <div className="summary-wrapper flex-center">
       {paymentId ? (
         <>
-          <h3>Order Summary</h3>
-          <div className="summary-container">
-            <h3 className="summary-header ">Order Confirmed</h3>
-            <div className="summary-main">
-              <div className="summary-left">
-                <h4>
-                  Payment Id : <span>{paymentId}</span>
-                </h4>
-                <h4>
-                  Total Amount : <span>₹ {amount}</span>
-                </h4>
-                <div>
-                  <h4>Order will be delivered to :</h4>
-                  <p>{delivery.name}</p>
+
+          <h3 className="text-xl font-semibold text-center py-2">Order Summary</h3>
+          <div className="flex  justify-between">
+
+            <div className="flex flex-col border w-1/3 gap-3 text-lg">
+              <h4 className="flex gap-5 ">
+                Payment Id : <span>{paymentId}</span>
+              </h4>
+              <h4 className="flex gap-5 ">
+                Total Amount : <span>₹ {amount}</span>
+              </h4>
+              <div className="flex flex-col gap-3">
+                <h4>Order will be delivered to :</h4>
+                <div><p>{delivery.name}</p>
 
                   <p className="paragraph-sm">
                     {delivery.street}, {delivery.city} ,
@@ -37,30 +37,30 @@ export function OrderSummary() {
                   <p className="paragraph-sm">
                     {delivery.state} ,{delivery.country}. {delivery.zipCode}
                   </p>
-                  <p className="paragraph-sm">Phone Number : {delivery.mobile}</p>
+                  {delivery.mobile && <p className="paragraph-sm">Phone Number : {delivery.mobile}</p>}
                 </div>
               </div>
-              <div className="summary-right">
-                {products.map(({ image, title, price, qty }) => (
-                  <div className="card horizontal-container">
-                    <div className="card-horizontal">
-                      <img className="card-img horizontal-img" src={image} alt={title} />
-                      <div className="card-info">
-                        <div className="card-title">
-                          <div>
-                            <h4>{title}</h4>
+            </div>
+            <div className="w-1/2">
+              {products.map(({ image, title, price, qty }) => (
+                <div className="card horizontal-container">
+                  <div className="card-horizontal">
+                    <img className="w-16 h-auto" src={image} alt={title} />
+                    <div className="card-info">
+                      <div className="card-title">
+                        <div>
+                          <h4>{title}</h4>
 
-                          </div>
                         </div>
-                        <div className="price">
-                          <p>Total Quantity : {qty}</p>
-                          <p>Price : ₹ {price}</p>
-                        </div>
+                      </div>
+                      <div className="price">
+                        <p>Total Quantity : {qty}</p>
+                        <p>Price : ₹ {price}</p>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </>

@@ -83,8 +83,8 @@ const AuthProvider = ({ children }) => {
 		try {
 			const { data } = await addAddress(address, state.token);
 			dispatch({
-				type: ACTION_TYPE.ADDRESS,
-				payload: data.address
+				type: ACTION_TYPE.SET_ADDRESS,
+				payload: data.addresses
 			});
 		} catch (error) {
 			console.log(error);
@@ -93,7 +93,7 @@ const AuthProvider = ({ children }) => {
 	const removeUsersAddress = async addressId => {
 		try {
 			const { data } = await removeAddress(addressId, state.token);
-			dispatch({ type: ACTION_TYPE.ADDRESS, payload: data.address });
+			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
 		} catch (error) {
 			console.log(error);
 		}
@@ -102,7 +102,7 @@ const AuthProvider = ({ children }) => {
 	const updateUsersAddress = async address => {
 		try {
 			const { data } = await updateAddress(address, state.token);
-			dispatch({ type: ACTION_TYPE.ADDRESS, payload: data.address });
+			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
 		} catch (error) {
 			console.log(error);
 		}

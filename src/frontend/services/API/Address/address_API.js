@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const addAddress = async (address, token) => {
+
 	return await axios.post(
 		'api/user/address',
 		{
