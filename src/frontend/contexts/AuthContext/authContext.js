@@ -1,9 +1,6 @@
-import axios from 'axios';
 import {
 	createContext,
 	useContext,
-	useState,
-	useEffect,
 	useReducer
 } from 'react';
 import { logInService, signUpService } from '../../services/API/Auth/auth_API';
@@ -14,6 +11,7 @@ import {
 	removeAddress,
 	updateAddress
 } from '../../services/API/Address/address_API';
+import { toast } from 'react-hot-toast';
 
 const AuthContext = createContext();
 
@@ -27,12 +25,12 @@ const AuthProvider = ({ children }) => {
 					userData
 				);
 
-				localStorage.setItem('login', JSON.stringify({ token: encodedToken }));
+				localStorage.setItem('token', JSON.stringify({ token: encodedToken }));
 				localStorage.setItem(
 					'user',
 					JSON.stringify({ user: { ...foundUser, status: true } })
 				);
-
+				toast.success(`Welcome Back ${foundUser.name}`)
 				dispatch({
 					type: ACTION_TYPE.SET_TOKEN,
 					payload: encodedToken
@@ -42,12 +40,18 @@ const AuthProvider = ({ children }) => {
 					payload: { ...foundUser, status: true }
 				});
 
-				dispatch({
-					type: ACTION_TYPE.INITIAl_ADDRESS,
-					payload: foundUser.addresses
-				});
+
+				if (foundUser.addresses) {
+					dispatch({
+						type: ACTION_TYPE.INITIAl_ADDRESS,
+						payload: foundUser.addresses
+					});
+
+				}
+
+
 			} catch (error) {
-				console.log('Error in login user', error);
+				toast.error(error.response.data.error)
 			}
 		}
 	};
@@ -59,12 +63,12 @@ const AuthProvider = ({ children }) => {
 				status
 			} = await signUpService(userData);
 			if (status === 201) {
-				localStorage.setItem('signup', JSON.stringify({ token: encodedToken }));
+				localStorage.setItem('token', JSON.stringify({ token: encodedToken }));
 				localStorage.setItem(
 					'user',
 					JSON.stringify({ user: { ...createdUser, status: true } })
 				);
-
+				toast.success(`Welcome ${createdUser.name}`)
 				dispatch({
 					type: ACTION_TYPE.SET_TOKEN,
 					payload: encodedToken
@@ -75,19 +79,20 @@ const AuthProvider = ({ children }) => {
 				});
 			}
 		} catch (error) {
-			console.log('Error in login user', error);
+			toast.error(error.response.data.error)
 		}
 	};
 
 	const addUsersAddress = async address => {
 		try {
+			console.log(state.token)
 			const { data } = await addAddress(address, state.token);
 			dispatch({
 				type: ACTION_TYPE.SET_ADDRESS,
 				payload: data.addresses
 			});
 		} catch (error) {
-			console.log(error);
+			toast.error(error.response.data.error)
 		}
 	};
 	const removeUsersAddress = async addressId => {
@@ -95,7 +100,7 @@ const AuthProvider = ({ children }) => {
 			const { data } = await removeAddress(addressId, state.token);
 			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
 		} catch (error) {
-			console.log(error);
+			toast.error(error.response.data.error)
 		}
 	};
 
@@ -104,7 +109,7 @@ const AuthProvider = ({ children }) => {
 			const { data } = await updateAddress(address, state.token);
 			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
 		} catch (error) {
-			console.log(error);
+			toast.error(error.response.data.error)
 		}
 	};
 

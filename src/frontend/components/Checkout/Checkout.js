@@ -36,7 +36,7 @@ export function Checkout() {
 
   useEffect(() => {
     if (msg) {
-      navigate('/order-summary')
+      navigate('/order-summary', { state: true })
     }
   }, [msg])
 

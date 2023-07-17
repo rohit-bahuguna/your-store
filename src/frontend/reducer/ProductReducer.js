@@ -2,7 +2,7 @@ import { ACTION_TYPE, calcPercentage } from '../utils';
 
 export const initialState = {
 	sortBy: '',
-	priceRange: '',
+	priceRange: 0,
 	categories: [],
 	sortByRating: '',
 	products: [],
@@ -89,7 +89,7 @@ export function productReducer(state, action) {
 			return {
 				...state,
 				sortBy: '',
-				priceRange: '',
+				priceRange: 0,
 				sortByRating: '',
 				search: '',
 				selectedCategory: '',

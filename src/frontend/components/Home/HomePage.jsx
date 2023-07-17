@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
-
+import { MdKeyboardArrowRight } from "react-icons/md"
 import { useProductData } from '../../contexts/productContext/productContext';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { ACTION_TYPE, filterDataByCatagory } from '../../utils';
-import PrivateRoute from '../Auth/PrivateRoute';
 import HorizontalProductsBar from '../common/HorizontalProductsBar';
 
 const HomePage = () => {
   const { categories, products, dispatchProductData } = useProductData();
 
   const navigate = useNavigate();
-  const categoryFilter = () => { };
   const [carouselImages, setcarouselImages] = useState([
     'essentials.jpg', 'Back-to-school_Banner_1500x300.gif', 'healtly.jpg', "mangomadness.jpg", 'supersaver.jpg'
   ])
+
   const navigateToProductPage = (categoryName) => {
     dispatchProductData({
       type: ACTION_TYPE.SELECTED_CATEGORY,
@@ -46,8 +45,7 @@ const HomePage = () => {
             return (
               <div
                 key={_id}
-                onClick={() => categoryFilter('Men')}
-                className="w-[25%] border-2 rounded-lg shadow-md flex flex-col justify-between hover:scale-105">
+                className="w-[25%] border-2 rounded-lg shadow-md flex flex-col justify-between hover:scale-105 hover:text-indigo-700">
 
                 <img className="rounded-t-lg w-full h-[80%] hover:cursor-pointer  " src={banner} alt="card image" onClick={() => navigateToProductPage(categoryName)} />
 
@@ -96,9 +94,15 @@ const HomePage = () => {
               return (
                 <div
                   key={_id}
-                  className='px-5'
+                  className='px-5  '
                 >
-                  <h1 className='px-2 text-2xl font-semibold mb-3'>{categoryName}</h1>
+                  <h1 className='px-2 text-2xl font-semibold mb-3 hover:text-indigo-700  hover:cursor-pointer'
+                    onClick={() => navigateToProductPage(categoryName)}
+                  >
+
+                    {categoryName}
+                    <MdKeyboardArrowRight className='inline  text-3xl mb-1' />
+                  </h1>
 
                   <HorizontalProductsBar products={filteredProducts} />
 

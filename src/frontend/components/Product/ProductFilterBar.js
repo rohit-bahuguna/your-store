@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { ACTION_TYPE } from '../../utils';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import { useProductData } from '../../contexts/productContext/productContext';
 
-const STARS = [1, 2, 3, 4];
+const stars = [1, 2, 3, 4];
 
 export function ProductFilterBar() {
 	const {
@@ -16,10 +15,11 @@ export function ProductFilterBar() {
 		categories
 	} = useProductData();
 
-	const changeHandler = (typeOfDispatch, typeOfAction, e) => {
+	const changeHandler = (actionType, priceRange) => {
+
 		dispatchProductData({
-			type: typeOfDispatch,
-			payload: typeOfAction
+			type: actionType,
+			payload: priceRange
 		});
 	};
 
@@ -27,41 +27,41 @@ export function ProductFilterBar() {
 	const isSortByPrice = type => sortBy && sortBy === type;
 
 	return (
-		<div className=" flex flex-col gap-6 px-8  h-full">
-			<div className="flex justify-between  ">
+		<div className=" flex flex-col gap-6   h-full">
+			<div className="flex justify-between px-3 ">
 				<h4 className='font-semibold text-lg mb-1'>Filters</h4>
 				<button
 					onClick={() => {
 						changeHandler(ACTION_TYPE.CLEAR_FILTER, products);
 					}}
-					className="border px-5 hover:bg-sky-500 py-1 rounded-full shadow">
+					className="btnIndigo">
 					Clear
 				</button>
 			</div>
 
-			<div className="">
+			<div className="px-5">
 				<h4 className='font-semibold text-lg mb-1'>Price</h4>
 				<div>
 					<div className="flex justify-between">
-						<p>10</p>
-						<p>50</p>
-						<p>500</p>
-						<p>1000</p>
+						<p className='hover:cursor-pointer hover:text-indigo-700' onClick={() => changeHandler(ACTION_TYPE.PRICE_RANGE, 10)}>10</p>
+						{priceRange > 10 && priceRange < 500 && <p>{priceRange}</p>}
+						<p className='hover:cursor-pointer hover:text-indigo-700' onClick={() => changeHandler(ACTION_TYPE.PRICE_RANGE, 500)}>500</p>
 					</div>
 					<input
 						type="range"
 						name="rangeInput"
 						className="w-full"
 						min="10"
-						max="1000"
+						max="500"
+
 						value={priceRange}
 						onChange={e =>
-							changeHandler(ACTION_TYPE.PRICE_RANGE, e.target.value, e)}
+							changeHandler(ACTION_TYPE.PRICE_RANGE, e.target.value)}
 					/>
 				</div>
 			</div>
 
-			<div className="">
+			<div className="px-5">
 				<h4 className='font-semibold  text-lg mb-1'>Category</h4>
 				<div>
 					{categories.map(
@@ -75,7 +75,7 @@ export function ProductFilterBar() {
 												value: !showSubCategories
 											});
 										}}
-										className='hover:text-sky-500'
+										className='hover:text-indigo-700 hover:cursor-pointer'
 									>
 										{showSubCategories
 											? <BiChevronUp className="inline text-3xl" />
@@ -85,7 +85,7 @@ export function ProductFilterBar() {
 									{showSubCategories &&
 										subCategories.map(({ _id, subCategoryName, ischecked }) => {
 											return (
-												<div className="flex gap-2 mb-1">
+												<div className="flex gap-2 mb-1 group hover:cursor-pointer  ">
 													<input
 														type="checkbox"
 														name="light"
@@ -97,8 +97,11 @@ export function ProductFilterBar() {
 																{ subCategoryName, categoryName, chackedValue: !ischecked },
 																e
 															)}
+														id={subCategoryName}
 													/>
-													<label key={_id} >
+													<label key={_id} htmlFor={subCategoryName}
+														className='group-hover:cursor-pointer group-hover:text-indigo-700'
+													>
 														{`${subCategoryName
 															.charAt(0)
 															.toUpperCase()}${subCategoryName.slice(1)}`}
@@ -113,13 +116,13 @@ export function ProductFilterBar() {
 				</div>
 			</div>
 
-			<div className="">
+			<div className="px-5">
 				<h4 className='font-semibold text-lg mb-1'>Rating</h4>
-				<div className='flex flex-col gap-2'>
-					{STARS.map(star =>
-						<div className="" key={star}>
+				<div className='flex flex-col gap-2 '>
+					{stars.map(star =>
+						<div className="group flex items-center" key={star}>
 							<input
-								className="mr-2 "
+								className="mr-2 w-4 h-6"
 								type="radio"
 								name="rating"
 								value=""
@@ -128,8 +131,9 @@ export function ProductFilterBar() {
 								onChange={() => {
 									changeHandler(ACTION_TYPE.SORT_BY_RATING, star);
 								}}
+								id={star}
 							/>
-							<label >
+							<label htmlFor={star} className='group-hover:text-indigo-700 group-hover:cursor-pointer' >
 								{star} Stars & above
 							</label>
 						</div>
@@ -137,29 +141,31 @@ export function ProductFilterBar() {
 				</div>
 			</div>
 
-			<div className="">
-				<h4 className='font-semibold text-lg mb-1'>Sort by</h4>
+			<div className="px-5">
+				<h4 className='font-semibold text-lg mb-1'>Sort by price</h4>
 				<div className='flex flex-col gap-2'>
-					<div className="select-category">
+					<div className="flex items-center group">
 						<input
 							type="radio"
 							name="sort"
-							className="mr-2"
+							className="mr-2  w-4 h-6 "
 							checked={isSortByPrice('LOW_TO_HIGH')}
 							onChange={() => changeHandler(ACTION_TYPE.SORT_BY, 'LOW_TO_HIGH')}
+							id='lowToHigh'
 						/>
 
-						<label className="input-label">Price - Low to High</label>
+						<label className="group-hover:text-indigo-700 group-hover:cursor-pointer" htmlFor='lowToHigh'> Low to High</label>
 					</div>
-					<div className="select-category">
+					<div className="flex items-center group">
 						<input
 							type="radio"
 							name="sort"
-							className="mr-2"
+							className="mr-2 w-4 h-6"
 							checked={isSortByPrice('HIGH_TO_LOW')}
 							onChange={() => changeHandler(ACTION_TYPE.SORT_BY, 'HIGH_TO_LOW')}
+							id='highToLow'
 						/>
-						<label className="input-label">Price - High to Low</label>
+						<label className="group-hover:text-indigo-700 group-hover:cursor-pointer" htmlFor='highToLow'> High to Low</label>
 					</div>
 				</div>
 			</div>

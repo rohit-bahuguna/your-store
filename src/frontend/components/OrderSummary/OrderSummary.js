@@ -4,7 +4,7 @@ import { useProductData } from "../../contexts/productContext/productContext";
 import { useOrderData } from "../../contexts/orderContext";
 
 
-export function OrderSummary() {
+export const OrderSummary = () => {
   const {
     order: { amount, paymentId, delivery, products },
   } = useOrderData();
@@ -13,14 +13,14 @@ export function OrderSummary() {
   changeTitle("Order Summery")
   return (
 
-    <div className="summary-wrapper flex-center">
-      {paymentId ? (
+    <div className="w-full px-10">
+      {paymentId ? 
         <>
 
           <h3 className="text-xl font-semibold text-center py-2">Order Summary</h3>
           <div className="flex  justify-between">
 
-            <div className="flex flex-col border w-1/3 gap-3 text-lg">
+            <div className="flex flex-col  w-1/3 gap-3 text-lg">
               <h4 className="flex gap-5 ">
                 Payment Id : <span>{paymentId}</span>
               </h4>
@@ -41,36 +41,38 @@ export function OrderSummary() {
                 </div>
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 flex flex-col gap-5">
               {products.map(({ image, title, price, qty }) => (
-                <div className="card horizontal-container">
-                  <div className="card-horizontal">
-                    <img className="w-16 h-auto" src={image} alt={title} />
+
+                <div className="flex py-2 justify-around border-b-2 border-gray-400">
+                  <img className="w-24 h-auto" src={image} alt={title} />
                     <div className="card-info">
                       <div className="card-title">
                         <div>
-                          <h4>{title}</h4>
+                        <h4 className="text-lg font-semibold">{title}</h4>
 
                         </div>
                       </div>
                       <div className="price">
-                        <p>Total Quantity : {qty}</p>
-                        <p>Price : ₹ {price}</p>
+                      <p>Total Quantity : <span className="font-semibold"> {qty}</span></p>
+                      <p>Price :
+                        <span className="font-semibold"> ₹ {price}</span>
+                      </p>
                       </div>
                     </div>
                   </div>
-                </div>
+
               ))}
             </div>
           </div>
         </>
-      ) : (
-        <>
-          <h3 class="order-msg">Look's like your order is empty.</h3>
+        : (
+          <div className="flex flex-col items-center gap-10 py-5">
+            <h3 class="text-2xl">Look's like your haven't ordered anything.</h3>
           <Link to="/products">
-            <button className="link-btn">Shop Now</button>
+              <button className="btnIndigo">Shop Now</button>
           </Link>
-        </>
+          </div>
       )}
     </div>
 

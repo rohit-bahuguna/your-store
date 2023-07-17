@@ -12,6 +12,7 @@ import { OrderSummary } from "./frontend/components/OrderSummary/OrderSummary";
 import { UserProfile } from "./frontend/components/UserProfile/UserProfile";
 import { Wishlist } from "./frontend/components/Wishlist/Wishlist";
 import PrivateRoute, { IsAuthenticated } from "./frontend/components/Auth/PrivateRoute";
+import OrderSummaryPage from "./frontend/components/OrderSummary/OrderSummaryPage";
 
 function App() {
   return (
@@ -33,9 +34,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/order-summary" element={<OrderSummary />} />
           <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/order-summary" element={<OrderSummary />} />
+          <Route path="/order-summary" element={<OrderSummaryPage />} />
 
         </Route>
       </Routes>

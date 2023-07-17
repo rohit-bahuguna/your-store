@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuthData } from '../../contexts/AuthContext/authContext'
 
 const PrivateRoute = () => {
@@ -22,12 +22,17 @@ const PrivateRoute = () => {
 
 export const IsAuthenticated = () => {
     const { user: { status } } = useAuthData()
-
+    const location = useLocation()
     const navigate = useNavigate()
     useEffect(() => {
-        if (status) {
+
+        if (location.pathname === "/signup") {
+            navigate('/')
+        } else if (status) {
             navigate(-1)
         }
+
+
     }, [status])
     return (
         <Outlet />

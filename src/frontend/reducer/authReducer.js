@@ -1,8 +1,9 @@
+import { toast } from 'react-hot-toast';
 import { ACTION_TYPE } from '../utils';
 
 export const initialState = {
     addresses: [],
-    token: JSON.parse(localStorage.getItem("login"))?.token,
+    token: JSON.parse(localStorage.getItem("token"))?.token,
     user: { ...JSON.parse(localStorage.getItem("user"))?.user, status: false },
 
 };
@@ -23,9 +24,9 @@ export function authReducer(state, action) {
             return { ...state, user: payload }
         }
         case ACTION_TYPE.LOG_OUT: {
-            localStorage.setItem("login", JSON.stringify({ token: '' }));
+
+            localStorage.setItem("token", JSON.stringify({ token: '' }));
             localStorage.setItem("user", JSON.stringify({ user: { status: true } }));
-            localStorage.setItem("signup", JSON.stringify({ token: '' }));
 
             return {
                 ...initialState

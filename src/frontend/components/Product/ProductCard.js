@@ -1,13 +1,8 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
-
 import {
-	calcPercentage,
 	isProductInCart,
 	isProductInWishlist
 } from '../../utils/cartUtils';
-
-import { toast } from 'react-toastify';
 import { BsCartCheck } from "react-icons/bs"
 import { AiOutlineShoppingCart, AiOutlineHeart, AiFillHeart, AiFillStar } from 'react-icons/ai';
 import { useCartData } from '../../contexts/cartContext/cartContext';
@@ -17,7 +12,6 @@ import { useWishlistData } from '../../contexts/wishlistContext';
 export function ProductCard({ product }) {
 	const { cart, addProductToCart } = useCartData();
 	const { wishlist, addProductToWishlist, removeProductFromWishlist } = useWishlistData()
-	const [btnDisabled, setBtnDisabled] = useState(false);
 	const { token } = useAuthData();
 	const navigate = useNavigate();
 
@@ -51,7 +45,7 @@ export function ProductCard({ product }) {
 	};
 
 	return (
-		<div key={id} className="border-b-2  hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
+		<div key={id} className="border-2  hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
 			<div className='self-end px-3 '>
 				{isInWishlist ? <AiFillHeart className=' text-3xl text-red-500' onClick={wishlistHandler} /> : <AiOutlineHeart className=" text-3xl  " onClick={wishlistHandler} />}
 			</div>
@@ -84,10 +78,8 @@ export function ProductCard({ product }) {
 					<p className="text-green-900  bg-green-100 px-2 py-1 rounded-full ">{product.percentageOff}% OFF</p>
 				</div>
 				{isInCart ? <button
-					className={`border hover:text-indigo-700  text-sky-500 hover:border-indigo-700 flex items-center gap-3  border-sky-500 self-center  px-5 py-1 rounded-full`}
-					disabled={
-						btnDisabled
-					}
+					className="btnIndigo bg-indigo-200 self-center flex items-center gap-2"
+
 					onClick={() => addToCartHandler()}
 				>
 
@@ -96,10 +88,8 @@ export function ProductCard({ product }) {
 
 				</button> :
 					<button
-						className={`border text-indigo-700  hover:text-sky-500 hover:border-sky-500 flex items-center gap-3  border-indigo-700 self-center  px-5 py-1 rounded-full`}
-						disabled={
-							btnDisabled
-						}
+						className={`btnIndigo  self-center flex items-center gap-2`}
+
 						onClick={() => addToCartHandler()}
 					>
 

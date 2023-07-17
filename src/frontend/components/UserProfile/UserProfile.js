@@ -1,13 +1,11 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
-//import { removeFromAddress } from "../../services";
 import { ACTION_TYPE } from '../../utils';
 import { AddressForm } from './AddressForm';
 import { CgProfile } from "react-icons/cg"
 import { FaHandsPraying } from "react-icons/fa6"
-import { FiLogOut, FiMoreVertical } from "react-icons/fi"
 import Input from "../custom/Input"
 import { useProductData } from '../../contexts/productContext/productContext';
 import { useCartData } from '../../contexts/cartContext/cartContext';
@@ -32,9 +30,7 @@ export function UserProfile() {
 		dispatchProductData
 	} = useProductData();
 	const { dispatchCartData } = useCartData();
-	// const {
-	// 	order: { amount, paymentId, delivery, products },
-	// } = useOrderData();
+
 
 	const [formDisplay, setFormDisplay] = useState({
 		status: false,
@@ -51,9 +47,10 @@ export function UserProfile() {
 		dispatchProductData({
 			type: ACTION_TYPE.LOG_OUT
 		});
-		localStorage.removeItem('login');
+		toast.success("Logout Successfully")
+		localStorage.removeItem('token');
 		localStorage.removeItem('user');
-		localStorage.removeItem('signup');
+
 
 		navigate('/products');
 	};
@@ -146,7 +143,7 @@ export function UserProfile() {
 						</div>}
 
 					{
-						display === "order" && <div>
+						display === "order" && <div className='pb-5'>
 							<OrderSummary />
 						</div>
 					}

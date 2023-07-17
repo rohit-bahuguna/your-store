@@ -64,6 +64,7 @@ export function AddressForm({ formDisplay, setFormDisplay }) {
 
 	const saveAddress = e => {
 		e.preventDefault();
+
 		addUsersAddress(addressForm)
 		setFormDisplay({ ...formDisplay, status: false })
 

@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useProductData } from '../../contexts/productContext/productContext';
 import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
+import { ACTION_TYPE } from '../../utils';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
-  const { categories } = useProductData();
-  const [style, setStyle] = useState({})
+  const { categories, dispatchProductData } = useProductData();
+  const navigate = useNavigate()
+  const navigateToProductPage = (categoryName) => {
+    dispatchProductData({
+      type: ACTION_TYPE.SELECTED_CATEGORY,
+      payload: categoryName
+    });
+    navigate(`/products/${categoryName}`)
+  }
   return (
     <section className=' flex   justify-evenly border-t-2 py-3 h-[30vh] bg-[#f6f6f6]'>
       <div className=' ' >
@@ -14,8 +23,9 @@ const Footer = () => {
             categories.map(({ categoryName, _id }) => <p
               key={_id}
 
-              className='hover:text-sky-700 hover:cursor-pointer'
-              style={style}
+              className='hover:text-indigo-700 hover:cursor-pointer'
+
+              onClick={() => navigateToProductPage(categoryName)}
             >{categoryName}</p>)
           }
         </div>
@@ -24,10 +34,16 @@ const Footer = () => {
       <div>
         <h3 className='mb-3 uppercase font-semibold' >Connect With Us</h3>
         <div className='flex flex-col gap-3 '>
-          <p className="hover:text-sky-700 hover:cursor-pointer"> <AiFillLinkedin className='inline text-xl' /> Linkdin</p>
+          <Link to="https://www.linkedin.com/in/rohit--bahuguna" target='#blank'>
+            <p className="hover:text-indigo-700 "> <AiFillLinkedin className='inline text-xl' /> Linkdin</p>
+          </Link>
 
-          <p className="hover:text-sky-700 hover:cursor-pointer"> <AiFillGithub className='inline text-xl' />  GitHub</p>
-          <p className="hover:text-sky-700 hover:cursor-pointer">  <AiFillInstagram className='inline text-xl' /> InstaGram</p>
+
+          <Link to="https://github.com/rohit-bahuguna" target='#blank'>
+            <p className="hover:text-indigo-700 "> <AiFillGithub className='inline text-xl' />  GitHub</p></Link>
+
+          <Link to="https://www.instagram.com/the_rohit_bahuguna" target='#blank'>
+            <p className="hover:text-indigo-700 ">  <AiFillInstagram className='inline text-xl' /> InstaGram</p></Link>
         </div>
 
       </div>
@@ -35,10 +51,10 @@ const Footer = () => {
         <h3 className='mb-3 uppercase font-semibold'>Contact Us</h3>
 
         <div className='flex flex-col gap-3' >
-          <h4 className="hover:text-sky-700 hover:cursor-pointer">Rohit Bahuguna</h4>
-          <p className="hover:text-sky-700 hover:cursor-pointer">Call / Whatsapp : <span className='contact'>9627944998</span></p>
+          <h4 className="">Rohit Bahuguna</h4>
+          <p className="">Call / Whatsapp : <span className='contact'>9627944998</span></p>
 
-          <p className="hover:text-sky-700 hover:cursor-pointer">Email :  <span className='contact'>rohitbahuguna.work@gmail.com</span></p>
+          <p className="">Email :  <span className='contact'>rohitbahuguna.work@gmail.com</span></p>
         </div>
 
 

@@ -11,6 +11,7 @@ import { ACTION_TYPE } from '../../utils';
 import { useWishlistData } from '../../contexts/wishlistContext';
 import Logo from './Logo';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { toast } from 'react-hot-toast';
 
 export const Header = () => {
   const { cart } = useCartData()
@@ -149,7 +150,7 @@ export const Header = () => {
             dispatchAuthData({
               type: ACTION_TYPE.LOG_OUT
             })
-
+            toast.success("Logout Successfully")
           }}
 
           >Logout</button> : <Link to="/login"><button className='btnIndigo'>Login</button></Link>}
