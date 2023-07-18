@@ -21,7 +21,7 @@ const AddressCard = ({ address: { name,
     useOutsideClick(modalRef, () => setOpen(false))
 
     return (
-        <div className="border-b-2 border-gray-500 relative flex justify-between px-10 py-5">
+        <div className="border-b-2 border-gray-500 relative flex justify-between md:px-10 py-5">
             <div className='flex flex-col gap-2'>
                 <p>
                     {name} , {street},
@@ -32,7 +32,7 @@ const AddressCard = ({ address: { name,
                 <p>{mobile}</p>
             </div>
             <FiMoreVertical className='text-xl cursor-pointer' onClick={() => setOpen(true)} />
-            {open && <div className="absolute right-10 rounded x-10 bg-white bottom-5  border flex flex-col py-2  w-32 "
+            {open && <div className="absolute md:right-10 right-2 rounded x-10 bg-white bottom-5  border flex flex-col py-2  w-32 "
                 ref={modalRef}
             >
                 <p

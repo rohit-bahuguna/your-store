@@ -3,15 +3,13 @@ import Layout from "../common/Layout";
 import Input from "../custom/Input";
 import Button from "../custom/Button";
 import { validateUserData } from "../../services/validation/signInValidater";
-
-
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
-import Logo from "../common/Logo";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 const LogIn = () => {
 
-  const { loginUser, token } = useAuthData()
+  const { loginUser } = useAuthData()
   const initialErrors = {
     passwordError: { message: "", error: false },
     emailError: { message: "", error: false },
@@ -21,8 +19,6 @@ const LogIn = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false)
-  const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
 
@@ -43,8 +39,6 @@ const LogIn = () => {
       setError({ ...error, ...errors });
     }
   };
-
-
 
 
   const signInAsGuest = () => {
@@ -68,11 +62,19 @@ const LogIn = () => {
 
   return (
     <Layout>
-      <div className="flex justify-center items-center ">
-        <div className="border rounded-xl shadow h-[55vh] flex flex-col gap-5 px-5 py-2 ">
+      <div className="flex justify-center items-center py-5">
+        <div className="border rounded-xl shadow max-h-[60vh] flex flex-col gap-5 px-5 py-2 ">
 
-          <div className="px-10">
-            <Logo />
+          <div className=" px-10">
+            <Link to="/">
+              <div className=" border-2 border-indigo-500 px-1 pt-1.5  text-center h-12 text-lg  hover:bg-indigo-100  text-indigo-700   ">
+
+                <h1 className="border-b-2  border-x-2 font-bold border-indigo-500 text-2xl  hover:cursor-pointer px-3   ">
+                  {' '}YOUR STORE
+                </h1>
+
+              </div>
+            </Link>
           </div>
           <div className="flex flex-col gap-8">
             <Input
@@ -106,7 +108,7 @@ const LogIn = () => {
               </div>
             </div>
 
-            <div className="flex justify-between px-3">  
+            <div className="flex gap-5 justify-between px-3">  
               <Button
                 title={!loading ? "Log In" : "Logging In"}
                 callback={userSignIn}

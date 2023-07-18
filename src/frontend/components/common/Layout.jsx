@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Toaster } from "react-hot-toast";
+import SearchBar from "./SearchBar";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const Layout = ({ children }) => {
+  const [showSearch, setShowSearch] = useState(false)
+  const searchRef = useRef()
+  useOutsideClick(searchRef, () => setShowSearch(false))
+  console.log(showSearch)
   return (
-    <div className="flex  flex-col gap-5 relative">
+    <div className="flex w-full flex-col md:gap-5 gap-1 relative">
       <Toaster
         position="top-center"
         reverseOrder={false}
       />
-      <Header />
+      <Header setShowSearch={setShowSearch} />
+      {showSearch && <div className="md:hidden px-1 my-1  bg-white top-[4.5rem] w-screen "
+        ref={searchRef}
+      >
+        <SearchBar />
+
+      </div>}
       <div className=" ">
         {children}
       </div>

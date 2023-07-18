@@ -3,6 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { CiLocationOn } from "react-icons/ci"
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
+import { MdLogout } from "react-icons/md"
+import { BiSearch } from 'react-icons/bi';
+import { CgProfile } from "react-icons/cg"
+import { GiHamburgerMenu } from "react-icons/gi"
 import { BiChevronDown } from 'react-icons/bi';
 import { useCartData } from "../../contexts/cartContext/cartContext"
 import { useAuthData } from '../../contexts/AuthContext/authContext';
@@ -12,52 +16,47 @@ import { useWishlistData } from '../../contexts/wishlistContext';
 import Logo from './Logo';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { toast } from 'react-hot-toast';
+import SearchBar from './SearchBar';
 
-export const Header = () => {
+export const Header = ({ setShowSearch }) => {
   const { cart } = useCartData()
   const { wishlist } = useWishlistData()
-  const { dispatchProductData, products } = useProductData()
-  const [searchInput, setSearchInput] = useState('');
-  const [searchData, setSearchData] = useState([]);
+  const { dispatchProductData } = useProductData()
   const { user, dispatchAuthData, addresses } = useAuthData()
-  const navigate = useNavigate();
-  const [showSearchOutputModal, setShowOutputModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
-  const searchProducts = () => {
-    setShowOutputModal(true)
-    const searchedProduct = products.filter(({ title }) => title.toLowerCase().includes(searchInput.toLowerCase()))
-    setSearchData(searchedProduct)
+
+  const userLogout = () => {
+
+    dispatchProductData({
+      type: ACTION_TYPE.LOG_OUT
+    })
+
+    dispatchAuthData({
+      type: ACTION_TYPE.LOG_OUT
+    })
+    toast.success("Logout Successfully")
 
   }
 
-  const resetSearch = () => {
-    setSearchInput('')
-    setShowOutputModal(false)
-  }
+
 
   const modalRef = useRef()
-  useOutsideClick(modalRef, resetSearch)
+  useOutsideClick(modalRef, () => setShowModal(false))
 
 
-  useEffect(() => {
-    if (searchInput) {
-      searchProducts()
-    } else {
-      setSearchData([])
-    }
 
-  }, [searchInput]);
 
 
   return (
-    <nav className="flex border-b w-full h-[10vh] shadow  gap-20 justify-evenly items-center sticky top-0 bg-white z-10">
+    <nav className="flex border-b px-1 w-full h-[10vh] shadow  sm:gap-20 sm:justify-evenly justify-between items-center sticky top-0 bg-white z-10">
 
       {/* Logo */}
       <div className='flex gap-10     '>
         <Logo />
 
         {/* Address */}
-        <div className=''>
+        <div className='hidden sm:block'>
           <p className='ml-1'> Deliver to</p>
 
 
@@ -73,61 +72,33 @@ export const Header = () => {
         </div>
       </div>
 
-      <div className='w-[30%] relative '>
-        <input type="text" className='px-2 py-2 border w-full rounded text-lg' placeholder='Search Here' onChange={(e) => setSearchInput(e.target.value)} value={searchInput} />
-        {showSearchOutputModal &&
-          <div className='flex max-h-[50vh] overflow-y-scroll flex-col gap-3 bg-white absolute w-full rounded-b-xl border-x border-b px-2   py-2  ' ref={modalRef}>
-            {searchData.length === 0 ? (
-              <p className='text-center text-lg'>No item to show</p>
-            ) : (
-                searchData.map(({ id, title, price, image }) => {
-                return (
-                  <div
-                    onClick={() => {
-                      setShowOutputModal(false)
-                      setSearchInput('')
-                      navigate(`/product-details/${id}`, { replace: true })
-                    }}
-                    className='flex justify-between items-center px-2 py-1 changeColorOnHover rounded border'
-                  >
-                    <img
-                      className='w-10 h-auto filter mix-blend-multiply   '
-                      src={image}
-                      alt='nav search img'
-                    />
-                    <div className='  w-[80%] flex justify-between px-5'>
+      {/* search */}
 
-                      <p className='text-lg font-wt-semibold'>{title}</p>
-
-                      <p className='font-wt-md'>₹ {price}</p>
-
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
-        }
+      <div className='hidden sm:block w-[30%]  '>
+        <SearchBar />
       </div>
 
+      {/* user name */}
       <div className='flex items-center gap-10  '>
         {user.status &&
 
           <Link to="/user-profile">
-            <p className='mt-1 flex items-center hover:text-sky-600'>
+            <p className='mt-1 md:flex hidden items-center hover:text-sky-600'>
               <span className='first-letter:uppercase '>{user?.name.split(' ')[0]}</span> <BiChevronDown className='inline text-2xl' />
             </p>
           </Link>
         }
 
-        <div className='flex   relative items-center gap-10 py-3 '>
+        {/* wishlist cart login botton */}
 
+        <div className='flex   relative items-center gap-3 md:gap-8 py-3 '>
+          <BiSearch className=' md:hidden  text-3xl hover:text-sky-500 ' onClick={() => setShowSearch(true)} />
 
-          <Link to="/wishlist">
+          <Link to="/wishlist" className=''>
             <AiOutlineHeart className='text-3xl hover:text-sky-500 ' />
 
             {
-              wishlist.length > 0 && <div className='text-white  absolute top-2 left-5  bg-sky-500 text-lg rounded-full text-center w-8 h-7 m-1  '>{wishlist.length}</div>
+              wishlist.length > 0 && <div className='text-white  absolute top-0 right-20 md:left-5  bg-sky-500 text-lg rounded-full text-center md:w-8 md:h-7 w-6 h-6 m-1  '>{wishlist.length}</div>
             }
 
           </Link>
@@ -137,23 +108,32 @@ export const Header = () => {
             <AiOutlineShoppingCart className='text-3xl hover:text-sky-500 ' />
 
             {
-              cart.length > 0 && <div className='text-white  absolute top-2 left-20 m-1  bg-sky-500 text-lg rounded-full text-center w-8 h-7 '>{cart.length}</div>
+              cart.length > 0 && <div className='text-white  absolute top-0 left-24 md:left-20 m-1  bg-sky-500 text-lg rounded-full text-center md:w-8 md:h-7 w-6 h-6'>{cart.length}</div>
             }
 
           </Link>
 
-          {user.status ? <button className='btnRed' onClick={() => {
-            dispatchProductData({
-              type: ACTION_TYPE.LOG_OUT
-            })
-
-            dispatchAuthData({
-              type: ACTION_TYPE.LOG_OUT
-            })
-            toast.success("Logout Successfully")
-          }}
-
-          >Logout</button> : <Link to="/login"><button className='btnIndigo'>Login</button></Link>}
+          {user.status ? <div>
+            <button className='btnRed hidden md:block relative' onClick={userLogout}
+            >Logout</button>
+            <GiHamburgerMenu className='md:hidden text-3xl mr-2 hover:text-indigo-700 ' onClick={() => setShowModal(true)} />
+            {
+              showModal && <div className='md:hidden rounded-xl absolute right-2  bg-white  border py-1 text-lg'
+                ref={modalRef}
+              >
+                <Link to="/user-profile">
+                  <p className=' px-5 py-1 hover:bg-indigo-100 hover:text-indigo-700 flex items-center gap-2'>
+                    <CgProfile className='inline text-2xl' />
+                    Profile</p>
+                </Link>
+                <p className=' px-5 py-1 hover:bg-indigo-100 hover:text-indigo-700 flex items-center gap-2'
+                  onClick={userLogout}
+                >
+                  <MdLogout className='inline text-2xl' />
+                  Logout</p>
+              </div>
+            }
+          </div> : <Link to="/login"><button className='btnIndigo'>Login</button></Link>}
         </div>
       </div>
     </nav>

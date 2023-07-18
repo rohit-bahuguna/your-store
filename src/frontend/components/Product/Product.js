@@ -1,10 +1,11 @@
-import React from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { MdFilterAltOff, MdFilterListAlt } from "react-icons/md"
 import { ProductCard } from "./ProductCard";
 import { ProductFilterBar } from "./ProductFilterBar";
 import { filterDataBySubCatagories, filterDataByCatagory, searchProduct, sortData } from "../../utils";
 import { useProductData } from "../../contexts/productContext/productContext";
 import Layout from "../common/Layout"
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 
 export function ProductListing() {
@@ -15,10 +16,11 @@ export function ProductListing() {
     products,
     search,
     selectedCategory,
-    selectedSubCategories
+    selectedSubCategories,
+    changeTitle
   } = useProductData();
 
-
+  const [showFilter, setShowFilter] = useState(false)
 
   const searchData = searchProduct([...products], search);
 
@@ -28,28 +30,32 @@ export function ProductListing() {
 
   const sortedData = sortData([...filteredDataSubCatagories], sortBy, priceRange, sortByRating);
 
-  // useEffect(() => {
-  //   setLoader(true);
-  //   setTimeout(() => {
-  //     setLoader(false);
-  //   }, 1000);
-  //   changeTitle("Products");
-  // }, []);
+  const filterRef = useRef();
+  useOutsideClick(filterRef, () => setShowFilter(false))
+
+  useEffect(() => {
+
+    changeTitle("Products");
+  }, []);
 
 
   return (
     <Layout>
-      <div className="flex w-full gap-2">
-        <div className="border-r-2 w-[20%] overflow-auto h-[90vh]  sticky top-[12vh] ">
+      <div className="flex w-full gap-2 ">
+        <div className="border-r-2 w-[20%] overflow-auto h-[90vh]  sticky hidden md:block top-[12vh] ">
           <ProductFilterBar />
         </div>
-        <div className="w-[80%] px-2" >
+        <div className="md:w-[80%] px-2" >
           <div className="product-list-header">
             {sortedData.length > 0 ? (
-              <>
+              <div className="flex justify-between ">
 
                 <p className="text-xl mb-2">Showing <span className="font-semibold">{sortedData.length}</span> of <span className="font-semibold" > {products.length}</span> items</p>
-              </>
+
+                {!showFilter ? <MdFilterListAlt className="md:hidden text-3xl hover:text-indigo-700 " onClick={() => setShowFilter(true)} /> :
+                  <MdFilterAltOff className="md:hidden text-3xl hover:text-indigo-700 " onClick={() => setShowFilter(false)} />
+                }
+              </div>
             ) : (
               products.length > 0 && <div className="flex justify-center">
 
@@ -59,12 +65,15 @@ export function ProductListing() {
             )}
           </div>
 
-          <div className="grid grid-cols-4  gap-3">
+          <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
             {sortedData && sortedData.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>
+        {showFilter && <div className="fixed bottom-0 top-[4.5rem]  py-2 bg-white overflow-auto " ref={filterRef}>
+          <ProductFilterBar />
+        </div>}
       </div>
     </Layout>
   );

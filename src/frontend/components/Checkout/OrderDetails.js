@@ -5,7 +5,7 @@ const OrderDetails = () => {
     const { cart } = useCartData();
 
     return (
-        <div className=' flex-col gap-3 flex justify-start px-10  w-1/2'>
+        <div className='hidden  flex-col gap-3 md:flex justify-start px-10  w-1/2'>
             <h4 className="text-xl  font-semibold self-center">ORDER DETAILS</h4>
 
             <table className=" ">

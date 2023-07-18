@@ -58,6 +58,28 @@ export const categories = [
 	},
 	{
 		_id: uuid(),
+		categoryName: 'Beverages',
+		subCategories: [
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Tea' },
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Coffee, Vermicelli' },
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Fruit juices' },
+			{
+				_id: uuid(),
+				ischecked: false,
+				subCategoryName: 'Energy & Soft Drinks'
+			},
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Soda & Water' },
+			{
+				_id: uuid(),
+				ischecked: false,
+				subCategoryName: 'Health Drink & Supplement'
+			}
+		],
+		banner:
+			'https://5.imimg.com/data5/SELLER/Default/2020/10/NP/NQ/FF/115160227/q-500x500.png'
+	},
+	{
+		_id: uuid(),
 		categoryName: 'Snacks & Branded Foods',
 		subCategories: [
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Biscuits & Cookies' },
@@ -81,27 +103,6 @@ export const categories = [
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Indian Sweets' }
 		],
 		banner: '/images/category/snacks.jpeg'
-	},
-	{
-		_id: uuid(),
-		categoryName: 'Beverages',
-		subCategories: [
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Tea' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Coffee, Vermicelli' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Fruit juices' },
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Energy & Soft Drinks'
-			},
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Soda & Water' },
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Health Drink & Supplement'
-			}
-		],
-		banner:
-			'https://5.imimg.com/data5/SELLER/Default/2020/10/NP/NQ/FF/115160227/q-500x500.png'
 	}
+
 ];

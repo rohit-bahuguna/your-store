@@ -58,8 +58,8 @@ export function UserProfile() {
 	changeTitle('My Profile');
 	return (
 		<Layout>
-			<div className="flex px-10 gap-10  w-full mb-36 relative">
-				<div className='w-[20%] flex flex-col gap-5 '>
+			<div className="flex md:flex-row flex-col  md:px-10  gap-10  w-full mb-36 relative">
+				<div className='md:w-[20%] flex flex-col gap-5 mx-2'>
 					<div className=' py-2 border-2 rounded-xl  flex justify-evenly items-center'>
 						<CgProfile className='text-5xl text-indigo-500' />
 						<div>
@@ -67,56 +67,38 @@ export function UserProfile() {
 							<p className='text-lg font-semibold'>{name}</p>
 						</div>
 					</div>
-					<div className='border-2 rounded-xl  py-3 px-2'>
-						<h1 className='text-lg mb-2 font-semibold'>ACCOUNT SETTINGS</h1>
-						<div className=' flex flex-col gap-2 px-3'>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "info" && 'changeColor'}`}
+					<div className='border-2 rounded-xl  py-3 md:px-2'>
+						<h1 className='text-lg mb-2 font-semibold hidden md:block'>ACCOUNT SETTINGS</h1>
+						<div className=' flex md:flex-col gap-2 px-3'>
+							<p className={`py-1 md:px-2 text-center md:text-start rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "info" && 'changeColor'}`}
 								onClick={() => setDisplay('info')}
 							>Profile Information</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "address" && 'changeColor '}`}
+							<p className={`py-1 md:px-2 text-center md:text-start rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "address" && 'changeColor '}`}
 								onClick={() => setDisplay('address')}
 							>Manage Addresses</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "order" && 'changeColor '}`}
+							<p className={`py-1 md:px-2 text-center md:text-start rounded hover:cursor-pointer hover:bg-indigo-100 ${display === "order" && 'changeColor '}`}
 								onClick={() => setDisplay('order')}
-							>Orders</p>
-							<p className={`py-1 px-2 rounded hover:cursor-pointer hover:bg-indigo-100`} onClick={() => logOutHandler()}>
+							>Orders Details</p>
+							<p className={`hidden md:block py-1 md:px-2 text-center md:text-start rounded hover:cursor-pointer hover:bg-indigo-100`} onClick={() => logOutHandler()}>
 
 								Logout</p>
 						</div>
 					</div>
 				</div>
-				<div className="  grow h-auto border rounded-xl px-5">
-					{display === "info" && <div className="flex flex-col gap-3 py-3">
+				<div className="  grow h-auto md:border rounded-xl md:px-5 px-2">
+					{display === "info" && <div className="flex  flex-col gap-5 py-3">
 
 						<h3 className="text-xl font-semibold self-center">Profile Information</h3>
-						<div className="flex items-center  justify-around  ">
-							<Input
-								inputInfo={{
+						<div className="flex flex-col gap-5 md:text-xl  justify-around  ">
 
-									label: "Name :",
-									type: "text",
-									callback: () => { },
-									name: "name",
-									value: name,
-									error: { status: false }
-								}}
-								style={"border py-1 px-2 disabled:bg-gray-200"}
-								disabled={true}
-							/>
-
-							<Input
-								inputInfo={{
-
-									label: "Email :",
-									type: "email",
-									callback: () => { },
-									value: email,
-									name: "email",
-									error: { status: false }
-								}}
-								style={"border py-1 px-2 disabled:bg-gray-200"}
-								disabled={true}
-							/>
+							<div className='flex md:gap-10 gap-5'>
+								<span className='font-semibold'>Name : </span>
+								<span >{name}</span>
+							</div>
+							<div className='flex md:gap-10 gap-5'>
+								<span className='font-semibold'>Email : </span>
+								<span>{email}</span>
+							</div>
 
 						</div>
 					</div>}

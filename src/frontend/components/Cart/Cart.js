@@ -15,48 +15,58 @@ export function Cart() {
   const { wishlist } = useWishlistData()
   const { changeTitle } = useProductData()
   const { token } = useAuthData()
+  const [proceedToBuy, setProceedToBuy] = useState(false)
   const isCartHasItem = cart.length > 0;
 
   useEffect(() => { changeTitle("Cart") }, []);
 
   return (
     <Layout>
-      <div className="mb-[24vh] ">
+      <div className="min-h-[60vh] py-5">
 
-        <div className="px-5  relative ">
+        <div className="md:px-5  relative ">
+          {isCartHasItem && <div className={`fixed ${!proceedToBuy && "hidden"} md:block top-16 py-20 md:py-0 md:top-24 border  rounded-xl md:w-1/4 bg-white right-0 left-0 md:left-[70%] md:right-20  h-screen md:h-auto`}>
 
-
-
+            <CartPrice />
+          </div>}
           <div className="flex w-full">
 
             <div className="flex w-full flex-col gap-5  justify-center ">
 
               {isCartHasItem ? (
-                <div className="w-[65%] flex flex-col gap-5">
-                  <div className="self-end mb-2  ">
-                    <button className="btnRed"
+                <div className="md:w-[65%]  flex flex-col gap-5">
+                  <div className=" mb-2 flex gap-3 self-end  px-3">
+
+                    <button className=" btnRed"
                       onClick={() => clearCartProducts(cart, token)}
                     >
                       Clear Cart
                     </button>
+
+                    <button className=" md:hidden btnIndigo bg-indigo-100 font-medium text-lg  "
+                      onClick={() => setProceedToBuy(true)}
+                    >
+                      Proceed To Buy ( {cart.length} )
+                    </button>
                   </div>
+
                   {cart.map((product) => <ProductVerticalCard key={product._id} product={product} />)}
                 </div>
 
               ) : (
 
-                  <div className="flex flex-col text-lg   items-center justify-center   ">
-                    <h2 className="font-semibold" > Your Cart Is Empty</h2>
+                  <div className="flex flex-col text-lg  gap-10 items-center justify-center   ">
+                    <h2 className=" text-2xl font-semibold" > Your Cart Is Empty</h2>
 
-                    <img src="/images/empty-cart.avif" className="w-[30%] h-auto" />
-                    <div className="flex gap-10 ">
+                    <img src="/images/empty-cart.avif" className="md:w-[30%] h-auto" />
+                    <div className="flex md:gap-10 gap-3 justify-center  w-screen  " >
                       {wishlist.length > 0 && <Link to="/wishlist">
-                        <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-lg">
-                          Go To Wishlist
+                        <button className="btnIndigo">
+                          View Wishlist
                         </button>
                       </Link>}
                       <Link to="/products">
-                        <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-lg">
+                        <button className="btnIndigo">
                           Explore Products
                         </button>
                       </Link>
@@ -66,9 +76,7 @@ export function Cart() {
               )}
             </div>
           </div>
-          {isCartHasItem && <div className="fixed top-24 border  rounded-xl w-1/4 right-20 ">
-            <CartPrice />
-          </div>}
+
         </div>
       </div>
     </Layout>

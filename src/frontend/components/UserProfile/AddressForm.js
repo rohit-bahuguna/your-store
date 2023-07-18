@@ -82,11 +82,11 @@ export function AddressForm({ formDisplay, setFormDisplay }) {
 
 	return (
 		<div
-			className={`flex h-screen  justify-center w-full   }`}>
+			className={`flex md:h-screen   justify-center w-full   }`}>
 
 
 
-			<div className='flex flex-col gap-3 w-1/3'>
+			<div className='flex flex-col gap-3 md:w-1/3'>
 				<h4 className='text-xl self-center font-semibold'>ADD NEW ADDRESS</h4>
 				<Input inputInfo={{
 					label: "Name",
@@ -188,7 +188,7 @@ export function AddressForm({ formDisplay, setFormDisplay }) {
 					style={"py-1 px-2 rounded border border-gray-400 "}
 				/>
 
-				<div className="flex justify-evenly mt-5">
+				<div className="flex gap-2 justify-evenly md:mt-5 pb-1">
 
 
 

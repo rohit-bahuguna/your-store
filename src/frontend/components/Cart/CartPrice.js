@@ -98,7 +98,7 @@ export function CartPrice() {
 
       {/* coupon modal */}
 
-    {couponModal &&  <div className="absolute w-full   h-full top-0 ">
+      {couponModal && <div className="absolute w-full   h-full  top-0 ">
               <CouponModal setCouponModal={setCouponModal} />
          </div>}
      

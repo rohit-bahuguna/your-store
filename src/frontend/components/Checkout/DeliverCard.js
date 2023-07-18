@@ -17,7 +17,7 @@ export function DeliverCard() {
 
       {addresses.length > 0 ? <>
         {changeAddress && <AddressCrad setChangeAddress={setChangeAddress} />}
-        <div className=" flex w-full justify-between items-center" >  <h4 className="text-xl  font-semibold self-center">DELIVER TO</h4>
+        <div className=" flex px-2 w-full  justify-between items-center" >  <h4 className="text-xl  font-semibold self-center">DELIVER TO</h4>
 
           <button className={`px-5 py-1 rounded-full text-lg border border-indigo-700 text-indigo-700 hover:bg-indigo-100   ${changeAddress && "hidden"} `}
             onClick={() => setChangeAddress(true)}

@@ -27,7 +27,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div className=" flex flex-col gap-3 ">
+      <div className="  flex flex-col gap-3 ">
 
         {/* main banner image */}
         <div className="hover:cursor-pointer">
@@ -40,17 +40,17 @@ const HomePage = () => {
         </div>
 
         {/* categories bar */}
-        <div className=" w-full gap-3  px-1 flex ">
+        <div className=" w-full  gap-3  px-1  sm:flex  sm:flex-row grid grid-cols-2 grid-rows-2   ">
           {categories.map(({ categoryName, _id, id, banner }) => {
             return (
               <div
                 key={_id}
-                className="w-[25%] border-2 rounded-lg shadow-md flex flex-col justify-between hover:scale-105 hover:text-indigo-700">
+                className="md:w-[25%] border-2 rounded-lg shadow-md flex flex-col justify-between hover:scale-105 hover:text-indigo-700">
 
                 <img className="rounded-t-lg w-full h-[80%] hover:cursor-pointer  " src={banner} alt="card image" onClick={() => navigateToProductPage(categoryName)} />
 
 
-                <h3 className="text-center pb-3 text-xl">
+                <h3 className="text-center pb-3 text-lg md:text-xl">
                   {categoryName}
                 </h3>
 
@@ -60,7 +60,7 @@ const HomePage = () => {
         </div>
 
         {/* Carousel bar */}
-        <div >
+        <div>
           <Carousel
             showArrows={true}
             showIndicators={false}
@@ -94,7 +94,7 @@ const HomePage = () => {
               return (
                 <div
                   key={_id}
-                  className='px-5  '
+                  className='sm:px-5  '
                 >
                   <h1 className='px-2 text-2xl font-semibold mb-3 hover:text-indigo-700  hover:cursor-pointer'
                     onClick={() => navigateToProductPage(categoryName)}

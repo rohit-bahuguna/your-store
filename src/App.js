@@ -16,10 +16,10 @@ import OrderSummaryPage from "./frontend/components/OrderSummary/OrderSummaryPag
 
 function App() {
   return (
-    <>
+    <div className=" w-full flex ">
       <Routes>
 
-        <Route path="/mockman" element={<MockMan />} />
+        {/* <Route path="/mockman" element={<MockMan />} /> */}
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductListing />} />
         <Route path="/products/:category" element={<ProductListing />} />
@@ -39,7 +39,7 @@ function App() {
 
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

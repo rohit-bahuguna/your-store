@@ -50,7 +50,7 @@ export function Checkout() {
         ) : (
             <div className=" flex w-full justify-between">
               <OrderDetails />
-              <div className="flex  justify-center gap-5 items-center w-1/2 flex-col ">
+              <div className="flex px-1 py-3 justify-center gap-5 items-center w-screen md:w-1/2 flex-col ">
 
                 <DeliverCard setMsg={setMsg} />
                 <PriceDetails />

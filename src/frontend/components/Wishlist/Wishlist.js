@@ -14,12 +14,12 @@ export function Wishlist() {
   changeTitle("Wishlist")
   return (
     <Layout>
-      <div className="flex justify-center px-5 mb-32">
+      <div className="flex justify-center px-5 py-5 ">
 
         {isWishlistHasItem ? (
           <div className="px-5">
             <h1 className="text-center text-2xl font-semibold mb-5">My Wishlist ( {wishlist.length} )</h1>
-            <div className="grid grid-cols-2  gap-5 ">
+            <div className="grid md:grid-cols-2  gap-5 ">
               {wishlist.map((product) => (
                 <ProductVerticalCard
                   key={product._id}
@@ -32,14 +32,14 @@ export function Wishlist() {
           </div>
         ) : (
 
-            <div className="flex flex-col items-center gap-10">
+            <div className="flex flex-col items-center py-5 gap-14">
               <h2 className="text-2xl font-semibold"> Your Wishlist Is Empty</h2>
 
               <img src="/images/empty-wishlist.png" className="  h-auto " />
-              <div className="flex gap-10">
-                {!cart.length > 0 && <Link to="/cart">
+              <div className="flex  md:gap-10 gap-5">
+                {cart.length > 0 && <Link to="/cart">
                   <button className="btnIndigo">
-                    Go To Cart
+                    View Cart
                   </button>
                 </Link>}
                 <Link to="/products">

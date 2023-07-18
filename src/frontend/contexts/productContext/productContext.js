@@ -14,7 +14,7 @@ import { initialState, productReducer } from '../../reducer/ProductReducer';
 const productContext = createContext(null);
 
 const useProductData = () => useContext(productContext);
-const changeTitle = title => (document.title = `${title} - Grosers`);
+const changeTitle = title => (document.title = `${title} - Your Store`);
 const ProductProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(productReducer, initialState);
 

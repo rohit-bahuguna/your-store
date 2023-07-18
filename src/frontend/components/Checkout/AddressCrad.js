@@ -12,16 +12,16 @@ const AddressCrad = ({ setChangeAddress }) => {
     return (
         <div className="flex items-center  mt-5 flex-col gap-5">
 
-            <h4 className="text-xl  font-semibold self-center">Select Delivery Address</h4>
+            <h4 className="text-xl  font-semibold self-center">Select a Delivery Address</h4>
             <div className='flex flex-col gap-3'>
                 {
                     addresses && addresses.map(({ _id, name, houseNumber, street, city, state, country, pinCode, mobile }) => (
                         <div key={_id} className="flex gap-5">
-                            <label className="select-input">
+
                                 <input
                                     type="radio"
                                     name="radio"
-
+                                id={_id}
                                     checked={orderAddress._id === _id}
                                     onChange={() =>
                                         dispatch({
@@ -40,16 +40,17 @@ const AddressCrad = ({ setChangeAddress }) => {
                                         })
                                     }
                                 />
+                            <label htmlFor={_id}>
 
-                            </label>
-                            <div >
                                 <p>{houseNumber} , {name} , {street},</p>
                                 <p >
                                     {city},{state}. {pinCode}
                                 </p>
                                 <p >{country}.</p>
 
-                            </div>
+
+                            </label >
+
                         </div>
                     ))
 

@@ -47,7 +47,7 @@ const Footer = () => {
         </div>
 
       </div>
-      <div>
+      <div className='hidden sm:block'>
         <h3 className='mb-3 uppercase font-semibold'>Contact Us</h3>
 
         <div className='flex flex-col gap-3' >

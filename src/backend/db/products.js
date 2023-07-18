@@ -69,7 +69,7 @@ export const products = [
 		_id: uuid(),
 		category: 'Fruits & Vegetables',
 		subCategoryName: 'Fresh Vegetables',
-		title: 'Lauki (Bottle Gourd)',
+		title: 'Lauki',
 		originalPrice: 100,
 		price: 20,
 		inStock: true,

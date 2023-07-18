@@ -37,7 +37,7 @@ const PlaceOrder = ({ setMsg }) => {
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
         if (!res) {
-            toast.error("Razorpay SDK failed to load, check you connection");
+            toast.error(" failed to load, please check you connection");
             return;
         }
 
@@ -45,7 +45,7 @@ const PlaceOrder = ({ setMsg }) => {
             key: "rzp_test_njYPlixIkB2ukb",
             amount: totalAmt * 100,
             currency: "INR",
-            name: "Grosers",
+            name: "Your Store",
             description: "Thank you for shopping with us",
             image: "https://github.com/rutvikpumak/pustaka-ecom/blob/dev/images/logo.png?raw=true",
             handler: function (response) {

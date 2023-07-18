@@ -58,10 +58,10 @@ export function ProductCard({ product }) {
 			/>
 
 
-			<div className="flex flex-col  gap-2 items-start px-5">
+			<div className="flex flex-col  gap-2 items-start md:px-5 px-1">
 
 
-				<h3 className="text-xl  font-semibold" title={title}>
+				<h3 className="md:text-xl   font-semibold" title={title}>
 					{title} {quantity} {scale}
 				</h3>
 				<div className="flex items-center text-lg gap-1">
@@ -70,8 +70,8 @@ export function ProductCard({ product }) {
 				</div>
 
 
-				<div className="flex gap-8 font-semibold ">
-					<p className="text-lg  ">
+				<div className="flex md:gap-8 gap-2 md:text-lg text-sm items-center font-semibold ">
+					<p className="  font-semibold">
 						₹ {price}
 					</p>
 					<p className="text-gray-400 line-through">₹{product.originalPrice}</p>
@@ -84,7 +84,7 @@ export function ProductCard({ product }) {
 				>
 
 
-					<BsCartCheck className="inline text-2xl" /> Go to Cart
+					<BsCartCheck className="md:inline hidden text-2xl" /> Go to Cart
 
 				</button> :
 					<button
@@ -93,7 +93,7 @@ export function ProductCard({ product }) {
 						onClick={() => addToCartHandler()}
 					>
 
-						<AiOutlineShoppingCart className="inline text-2xl" /> Add to Cart
+						<AiOutlineShoppingCart className="md:inline text-2xl hidden " /> Add to Cart
 
 					</button>}
 			</div>

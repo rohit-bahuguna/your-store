@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { useNavigate, useParams } from "react-router";
 import Layout from "../common/Layout"
 import { isProductInCart, isProductInWishlist } from "../../utils/cartUtils";
-import { toast } from "react-toastify";
 import { useProductData } from "../../contexts/productContext/productContext";
 import { AiOutlineHeart, AiFillTag, AiOutlineShoppingCart, AiFillStar, AiFillHeart } from "react-icons/ai";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
@@ -11,13 +9,12 @@ import { useCartData } from "../../contexts/cartContext/cartContext";
 import { useWishlistData } from "../../contexts/wishlistContext";
 import { BsCartCheck } from "react-icons/bs";
 import { MdKeyboardBackspace } from "react-icons/md"
+
 export function ProductDetails() {
   const { productId } = useParams();
 
   const navigate = useNavigate();
   const [btnDisabled, setBtnDisabled] = useState(false);
-  const [btnWishlistDisabled, setWishlistBtnDisabled] = useState(false);
-  // const { token } = useAuthData();
   const { products, changeTitle } = useProductData();
   const { cart, addProductToCart } = useCartData();
   const { wishlist, addProductToWishlist, removeProductFromWishlist } = useWishlistData()
@@ -29,7 +26,7 @@ export function ProductDetails() {
 
 
 
-  const { _id, id, image, title, rating, description, originalPrice, percentageOff, price, Brand, Manufacturer, soldBy,
+  const { id, image, title, rating, description, originalPrice, percentageOff, price, Brand, Manufacturer, soldBy,
     quantity, scale, category, countryOfOrigin, foodType } = product
 
   const isInCart = isProductInCart(cart, id);
@@ -59,7 +56,7 @@ export function ProductDetails() {
 
   return (
     <Layout>
-      <div className="flex  ">
+      <div className="flex mb-3 md:flex-row flex-col md:gap-0 gap-5">
 
         <div className="basis-1/3 flex flex-col">
           <MdKeyboardBackspace className="ml-6 hover:text-sky-800 hover:cursor-pointer text-3xl" onClick={() => navigate(-1)} />
@@ -102,7 +99,7 @@ export function ProductDetails() {
 
             </p>
 
-            <div className="flex gap-2"> <span className="MRP">M.R.P: ₹ {price}</span> <span>(Incl. of all taxes) </span>
+            <div className="flex gap-2 items-center "> <span className="font-semibold text-lg">M.R.P: ₹ {price}</span> <span>(Incl. of all taxes) </span>
               <span>(₹ {price / 4}/250g)</span>
             </div>
             <div className="flex gap-8 items-center">
