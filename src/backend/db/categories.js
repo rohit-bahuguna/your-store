@@ -12,7 +12,6 @@ export const categories = [
 		subCategories: [
 			{ _id: uuid(), ischecked: false , subCategoryName: 'Fresh Vegetables' },
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Fresh Fruits' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Premium Fruits' },
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Herbs & Seasonings' },
 			{
 				_id: uuid(),
@@ -51,18 +50,18 @@ export const categories = [
 				subCategoryName: 'Rice & Rice Products'
 			},
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Oils & Ghee' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Combo Offer' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Sugar & Jaggery' }
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Masalas & Spices' },
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Salt, Sugar & Jaggery' }
 		],
 		banner: '/images/category/staples.jpg'
 	},
-	{
+	{ 
 		_id: uuid(),
 		categoryName: 'Beverages',
 		subCategories: [
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Tea' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Coffee, Vermicelli' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Fruit juices' },
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Coffee' },
+			{ _id: uuid(), ischecked: false, subCategoryName: 'Fruit Juices' },
 			{
 				_id: uuid(),
 				ischecked: false,

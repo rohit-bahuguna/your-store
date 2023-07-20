@@ -22,7 +22,8 @@ export function ProductCard({ product }) {
 		price,
 		quantity,
 		scale,
-		image
+		image,
+		rating
 	} = product;
 
 	const isInCart = isProductInCart(cart, id);
@@ -65,7 +66,7 @@ export function ProductCard({ product }) {
 					{title} {quantity} {scale}
 				</h3>
 				<div className="flex items-center text-lg gap-1">
-					<p>3</p>
+					<p>{rating}</p>
 					<AiFillStar className='text-yellow-500' />
 				</div>
 

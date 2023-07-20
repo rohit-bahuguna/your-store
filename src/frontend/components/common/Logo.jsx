@@ -9,7 +9,7 @@ const Logo = () => {
         <h1 className="border-b-2 hidden md:block border-x-2 font-bold border-indigo-500 text-2xl  hover:cursor-pointer px-3   ">
           YOUR STORE
         </h1>
-        <h1 className="border-b-2 border-x-2 md:hidden font-bold border-indigo-500 text-sm   hover:cursor-pointer px-1    ">
+        <h1 className="border-b-2 text-xs border-x-2 md:hidden font-bold border-indigo-500 sm:text-sm   hover:cursor-pointer px-1    ">
           YOUR STORE
         </h1>
       </div>

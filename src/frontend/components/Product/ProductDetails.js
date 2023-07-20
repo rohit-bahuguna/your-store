@@ -94,7 +94,7 @@ export function ProductDetails() {
                 <AiOutlineHeart className="text-3xl hover:text-red-500 " onClick={wishlistHandler} />}
             </div>
             <p className="flex gap-1 items-center">
-              {rating} 4.9
+              {rating} 
               <AiFillStar className="text-xl text-yellow-500" />
 
             </p>

@@ -18,6 +18,10 @@ const changeTitle = title => (document.title = `${title} - Your Store`);
 const ProductProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(productReducer, initialState);
 
+	// const suffledProducts = state.products.sort(() => Math.random() - 0.5) 
+
+	//products: suffledProducts,
+
 	useEffect(() => {
 		(async () => {
 			try {
