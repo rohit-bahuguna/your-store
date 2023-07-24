@@ -24,7 +24,7 @@ const CartProvider = ({ children }) => {
             type: ACTION_TYPE.ADD_TO_CART,
             payload: cart,
         });
-        toast.success("Added To Cart")
+
     }
 
     const removeProductFromCart = async (id, token) => {
@@ -35,7 +35,7 @@ const CartProvider = ({ children }) => {
             type: ACTION_TYPE.REMOVE_FROM_CART,
             payload: cart,
         });
-        toast.success("Removed From Cart")
+
 
     }
 
@@ -44,7 +44,7 @@ const CartProvider = ({ children }) => {
         dispatch({
             type: ACTION_TYPE.CLEAR_CART
         });
-        toast.success("Cart Cleared")
+
 
     }
 

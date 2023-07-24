@@ -2,7 +2,7 @@ import React from 'react'
 import { OrderSummary } from './OrderSummary'
 import Layout from "../common/Layout"
 import { Link, useLocation } from 'react-router-dom'
-const OrderSummaryPage = () => {
+export const OrderSummaryPage = () => {
     const location = useLocation()
     return (
         <Layout>
@@ -27,5 +27,3 @@ const OrderSummaryPage = () => {
         </Layout>
     )
 }
-
-export default OrderSummaryPage

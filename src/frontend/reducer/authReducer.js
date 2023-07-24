@@ -28,6 +28,7 @@ export function authReducer(state, action) {
             localStorage.setItem("token", JSON.stringify({ token: '' }));
             localStorage.setItem("user", JSON.stringify({ user: { status: true } }));
 
+
             return {
                 ...initialState
             }

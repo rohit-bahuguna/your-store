@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const LogIn = () => {
+export const LogIn = () => {
 
   const { loginUser } = useAuthData()
   const initialErrors = {
@@ -128,4 +128,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+

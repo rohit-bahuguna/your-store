@@ -14,7 +14,7 @@ import { initialState, productReducer } from '../../reducer/ProductReducer';
 const productContext = createContext(null);
 
 const useProductData = () => useContext(productContext);
-const changeTitle = title => (document.title = `${title} - Your Store`);
+const changeTitle = title => (document.title = `${title} | Your Store`);
 const ProductProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(productReducer, initialState);
 
@@ -48,6 +48,9 @@ const ProductProvider = ({ children }) => {
 			}
 		})();
 	}, []);
+
+
+
 	return (
 		<productContext.Provider
 			value={{ ...state, products: suffledProducts, dispatchProductData: dispatch, changeTitle }}>

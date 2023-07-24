@@ -52,6 +52,7 @@ const SearchBar = () => {
                                 >
                                     <img
                                         className='w-10 h-auto filter mix-blend-multiply   '
+                                        loading="lazy"
                                         src={image}
                                         alt='nav search img'
                                     />

@@ -35,7 +35,7 @@ export const Header = ({ setShowSearch }) => {
     dispatchAuthData({
       type: ACTION_TYPE.LOG_OUT
     })
-    toast.success("Logout Successfully")
+    toast.success("Logged Out Successfully")
 
   }
 
@@ -49,7 +49,7 @@ export const Header = ({ setShowSearch }) => {
 
 
   return (
-    <nav className="flex border-b px-1 w-full h-[10vh] shadow  sm:gap-20 sm:justify-evenly justify-between items-center sticky top-0 bg-white z-10">
+    <nav className="flex border-b px-1  w-full h-[10vh] shadow  sm:gap-18 sm:justify-evenly justify-between items-center sticky top-0 bg-white z-10">
 
       {/* Logo */}
       <div className='flex gap-10     '>

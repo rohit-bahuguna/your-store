@@ -4,7 +4,7 @@ import { useProductData } from "../../contexts/productContext/productContext";
 import Layout from "../common/Layout";
 import { Link } from "react-router-dom";
 import { useCartData } from "../../contexts/cartContext/cartContext";
-import ProductVerticalCard from "../common/ProductVerticalCard";
+import ProductLongCard from "../common/ProductLongCard";
 export function Wishlist() {
   const { wishlist } = useWishlistData();
   const { cart } = useCartData()
@@ -21,7 +21,7 @@ export function Wishlist() {
             <h1 className="text-center text-2xl font-semibold mb-5">My Wishlist ( {wishlist.length} )</h1>
             <div className="grid md:grid-cols-2  gap-5 ">
               {wishlist.map((product) => (
-                <ProductVerticalCard
+                <ProductLongCard
                   key={product._id}
                   product={product}
                   from={"wishlist"}
@@ -35,7 +35,7 @@ export function Wishlist() {
             <div className="flex flex-col items-center py-5 gap-14">
               <h2 className="text-2xl font-semibold"> Your Wishlist Is Empty</h2>
 
-              <img src="/images/empty-wishlist.png" className="  h-auto " />
+              <img loading="lazy" src="/images/empty-wishlist.png" className="  h-auto " />
               <div className="flex  md:gap-10 gap-5">
                 {cart.length > 0 && <Link to="/cart">
                   <button className="btnIndigo">

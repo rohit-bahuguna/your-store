@@ -7,6 +7,7 @@ import {
 import { addToWishlist, removeFromWishlist } from "../services/API/Wishlist/wishlist_API"
 import { ACTION_TYPE } from '../utils/constant';
 import { initialState, cartReducer } from '../reducer/CartAndWishlistReducer';
+import toast from 'react-hot-toast';
 
 const wishlistContext = createContext(null);
 
@@ -30,7 +31,7 @@ const WishlistProvider = ({ children }) => {
         } catch (error) {
 
 
-            console.log("Error in Add To Wishlist Service", error);
+            toast.error("something went wrong")
         }
     }
 
@@ -46,8 +47,8 @@ const WishlistProvider = ({ children }) => {
 
         } catch (error) {
 
-
-            console.log("Error in Remove From Wishlist Service", error);
+            console.log(error)
+            toast.error("something went wrong")
         }
     }
 

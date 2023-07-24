@@ -1,14 +1,15 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { calcPercentage, isProductInCart, isProductInWishlist } from "../../utils/cartUtils";
+import {  isProductInCart, isProductInWishlist } from "../../utils/cartUtils";
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { useWishlistData } from "../../contexts/wishlistContext";
+import toast from "react-hot-toast";
 
-const ProductVerticalCard = ({ product, from = "" }) => {
+const ProductLongCard = ({ product, from = "" }) => {
     const navigate = useNavigate();
     const { token } = useAuthData();
     const { wishlist, updateProductQtyFromCart, removeProductFromCart } = useCartData()
@@ -26,11 +27,14 @@ const ProductVerticalCard = ({ product, from = "" }) => {
     const moveToWishlistFromCart = () => {
         addProductToWishlist(product, token);
         removeProductFromCart(product._id, token);
+        toast.success("moved to Wishlist")
     };
 
     const moveToCartHandler = () => {
         removeProductFromWishlist(product._id, token);
         addProductToCart(product, token);
+        toast.success("moved to Cart")
+
     };
 
     return (
@@ -39,7 +43,7 @@ const ProductVerticalCard = ({ product, from = "" }) => {
                 <div className=" md:w-[25%] self-center  w-[50vw] ">
 
                     <Link to={`/product-details/${product.id}`}>
-                        <img className=" " src={product.image} alt={product.title} />
+                        <img className=" " loading="lazy" src={product.image} alt={product.title} />
                     </Link>
                 </div>
                 <div className="md:grow w-[50vw] py-2 ">
@@ -105,7 +109,7 @@ const ProductVerticalCard = ({ product, from = "" }) => {
     );
 }
 
-export default ProductVerticalCard
+export default ProductLongCard
 
 
 

@@ -15,50 +15,22 @@ import PriceDetails from "../Cart/PriceDetails";
 
 export function Checkout() {
   const { changeTitle } = useProductData();
-  const { cart } = useCartData()
-
-
-  const { dispatch, orderAddress } = useOrderData();
-  const [msg, setMsg] = useState(false);
-  const navigate = useNavigate();
-
-  const placedHandler = () => {
-
-    setTimeout(() => {
-      navigate("/order-summary");
-    }, 1500);
-  };
-  useEffect(() => {
-    cart.length === 0 && navigate("/products");
-    changeTitle("Checkout");
-  }, []);
-
-
-  useEffect(() => {
-    if (msg) {
-      navigate('/order-summary', { state: true })
-    }
-  }, [msg])
-
+  changeTitle("Checkout")
   return (
     <Layout>
       <div className=" mb-52">
-        {msg ? (
-          <div>
-            <OrderSummary />
+
+        <div className=" flex w-full justify-between">
+          <OrderDetails />
+          <div className="flex px-1 py-3 justify-center gap-5 items-center w-screen md:w-1/2 flex-col ">
+
+            <DeliverCard />
+            <PriceDetails />
+            <PlaceOrder />
           </div>
-        ) : (
-            <div className=" flex w-full justify-between">
-              <OrderDetails />
-              <div className="flex px-1 py-3 justify-center gap-5 items-center w-screen md:w-1/2 flex-col ">
+        </div>
 
-                <DeliverCard setMsg={setMsg} />
-                <PriceDetails />
-                <PlaceOrder setMsg={setMsg} />
-              </div>
-            </div>
 
-        )}
       </div>
     </Layout >
   );

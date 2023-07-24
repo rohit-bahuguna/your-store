@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import { ACTION_TYPE } from "../../utils";
 
-const PlaceOrder = ({ setMsg }) => {
+const PlaceOrder = () => {
     const navigate = useNavigate();
     const { cart, clearCartProducts } = useCartData();
     const { priceDetails, orderAddress, dispatch, setOrder } = useOrderData();
@@ -32,7 +32,7 @@ const PlaceOrder = ({ setMsg }) => {
             document.body.appendChild(script);
         });
     };
-
+    console.log(Number.parseInt(totalAmt))
     const displayRazorpay = async () => {
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
@@ -43,11 +43,11 @@ const PlaceOrder = ({ setMsg }) => {
 
         const options = {
             key: "rzp_test_njYPlixIkB2ukb",
-            amount: totalAmt * 100,
+            amount: Number.parseInt(totalAmt) * 100,
             currency: "INR",
             name: "Your Store",
             description: "Thank you for shopping with us",
-            image: "https://github.com/rutvikpumak/pustaka-ecom/blob/dev/images/logo.png?raw=true",
+            image: "",
             handler: function (response) {
                 const orderData = {
                     products: [...cart],
@@ -58,7 +58,8 @@ const PlaceOrder = ({ setMsg }) => {
                 setOrder({ ...orderData });
                 clearCartProducts(cart, token);
                 dispatch({ type: ACTION_TYPE.RESET_PRICE });
-                setMsg(true);
+                navigate("/user-profile", { state: "order" })
+
             },
             prefill: {
                 name,
@@ -73,18 +74,9 @@ const PlaceOrder = ({ setMsg }) => {
         paymentObject.open();
     };
 
-    const placeOrderHandler = () => {
-        if (addresses.length === 0) {
-            toast.error("Please Add Address");
-            setTimeout(() => {
-                navigate("/user-profile#user-address");
-            }, 1500);
-        } else {
-            !orderAddress.name ? toast.error("Please Select Address") : displayRazorpay();
-        }
-    };
+
     return (
-        <div className="text-center" onClick={() => placeOrderHandler()}>
+        <div className="text-center" onClick={() => displayRazorpay()}>
             <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-2xl
             disabled:bg-gray-300
             disabled:text-gray-500

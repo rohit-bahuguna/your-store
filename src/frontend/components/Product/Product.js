@@ -6,7 +6,8 @@ import { filterDataBySubCatagories, filterDataByCatagory, searchProduct, sortDat
 import { useProductData } from "../../contexts/productContext/productContext";
 import Layout from "../common/Layout"
 import { useOutsideClick } from "../../hooks/useOutsideClick";
-
+import { getCategoryImage } from "../../utils/staticData";
+import Loader from "../common/Loader"
 
 export function ProductListing() {
   const {
@@ -24,7 +25,11 @@ export function ProductListing() {
 
   const searchData = searchProduct([...products], search);
 
+  const currentCategoryImage = getCategoryImage(selectedCategory)
+
   const filteredByCatagory = filterDataByCatagory([...searchData], selectedCategory);
+
+
 
   const filteredDataSubCatagories = filterDataBySubCatagories([...filteredByCatagory], selectedSubCategories);
 
@@ -59,17 +64,23 @@ export function ProductListing() {
             ) : (
               products.length > 0 && <div className="flex justify-center">
 
-                <img src="/images/no-product-found.png" alt="No Product Found" />
+                  <img loading="lazy" src="/images/no-product-found.png" alt="No Product Found" />
 
               </div>
             )}
           </div>
+          <div className="  mb-3   overflow-hidden">
+            <img loading="lazy" className="w-full max-h-36 rounded-3xl mix-blend-multiply " src={`/images/categoryBanners/${currentCategoryImage}`} />
 
-          <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
-            {sortedData && sortedData.map((product) => (
+          </div>
+          {sortedData ? <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
+            {sortedData.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
+          </div> : <div className="flex justify-center items-center">
+            <Loader message={"Loading Products"} />
           </div>
+          }
         </div>
         {showFilter && <div className="fixed bottom-0 top-[4.5rem]  py-2 bg-white overflow-auto " ref={filterRef}>
           <ProductFilterBar />

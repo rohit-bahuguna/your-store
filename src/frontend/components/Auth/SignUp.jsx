@@ -8,7 +8,7 @@ import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 
-const SignUp = () => {
+export const SignUp = () => {
   const navigate = useNavigate();
   const initialErrors = {
     passwordError: { message: "", error: false },
@@ -121,4 +121,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+

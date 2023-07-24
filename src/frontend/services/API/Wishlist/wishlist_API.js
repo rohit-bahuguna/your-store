@@ -17,8 +17,8 @@ export async function addToWishlist(product, token) {
 
 }
 
-export async function removeFromWishlist(id, token) {
-  return await axios.delete(`api/user/wishlist/${id}`, {
+export async function removeFromWishlist(productId, token) {
+  return await axios.delete(`api/user/wishlist/${productId}`, {
     headers: {
       authorization: token,
     },

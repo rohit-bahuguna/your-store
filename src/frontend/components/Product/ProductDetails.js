@@ -60,7 +60,7 @@ export function ProductDetails() {
 
         <div className="basis-1/3 flex flex-col">
           <MdKeyboardBackspace className="ml-6 hover:text-sky-800 hover:cursor-pointer text-3xl" onClick={() => navigate(-1)} />
-          <img className="w-full r h-auto" src={image} alt="" />
+          <img loading="lazy" className="w-full r h-auto" src={image} alt="" />
 
 
 

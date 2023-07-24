@@ -47,15 +47,14 @@ export function UserProfile() {
 		dispatchProductData({
 			type: ACTION_TYPE.LOG_OUT
 		});
-		toast.success("Logout Successfully")
 		localStorage.removeItem('token');
 		localStorage.removeItem('user');
 
-
+		toast.success("Logged Out Successfully")
 		navigate('/products');
 	};
 
-	changeTitle('My Profile');
+	changeTitle(`My Profile | ${display}`);
 	return (
 		<Layout>
 			<div className="flex md:flex-row flex-col  md:px-10  gap-10  w-full mb-36 relative">

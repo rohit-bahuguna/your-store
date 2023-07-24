@@ -8,6 +8,7 @@ import { AiOutlineShoppingCart, AiOutlineHeart, AiFillHeart, AiFillStar } from '
 import { useCartData } from '../../contexts/cartContext/cartContext';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 import { useWishlistData } from '../../contexts/wishlistContext';
+import toast from 'react-hot-toast';
 
 export function ProductCard({ product }) {
 	const { cart, addProductToCart } = useCartData();
@@ -35,14 +36,21 @@ export function ProductCard({ product }) {
 				? navigate('/cart')
 				: addProductToCart(product, token)
 			: navigate('/login');
+
+		toast.success('Added To Cart')
 	};
 
 	const wishlistHandler = () => {
 		token
 			? isInWishlist
-				? removeProductFromWishlist(_id, token)
+				?
+				removeProductFromWishlist(_id, token)
 				: addProductToWishlist(product, token)
 			: navigate('/login');
+
+
+		isInWishlist ? toast.success('Removed From Wishlist') : toast.success('Added To Wishlist')
+
 	};
 
 	return (
@@ -53,6 +61,7 @@ export function ProductCard({ product }) {
 
 			<img
 				className="w-full h-auto hover:cursor-pointer"
+				loading="lazy"
 				src={image}
 				alt={title}
 				onClick={() => navigate(`/product-details/${id}`)}

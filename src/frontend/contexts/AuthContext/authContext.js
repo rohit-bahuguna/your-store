@@ -91,6 +91,7 @@ const AuthProvider = ({ children }) => {
 				type: ACTION_TYPE.SET_ADDRESS,
 				payload: data.addresses
 			});
+			toast.success("New Address Added")
 		} catch (error) {
 			toast.error(error.response.data.error)
 		}
@@ -99,6 +100,8 @@ const AuthProvider = ({ children }) => {
 		try {
 			const { data } = await removeAddress(addressId, state.token);
 			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
+			toast.success("Address Removed")
+
 		} catch (error) {
 			toast.error(error.response.data.error)
 		}
@@ -108,6 +111,8 @@ const AuthProvider = ({ children }) => {
 		try {
 			const { data } = await updateAddress(address, state.token);
 			dispatch({ type: ACTION_TYPE.SET_ADDRESS, payload: data.addresses });
+			toast.success("Address Updated ")
+
 		} catch (error) {
 			toast.error(error.response.data.error)
 		}

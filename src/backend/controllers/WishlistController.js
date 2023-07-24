@@ -73,6 +73,7 @@ export const addItemToWishlistHandler = function (schema, request) {
 
 export const removeItemFromWishlistHandler = function (schema, request) {
   const userId = requiresAuth.call(this, request);
+  console.log(userId)
   try {
     if (!userId) {
       return new Response(
@@ -83,6 +84,7 @@ export const removeItemFromWishlistHandler = function (schema, request) {
         }
       );
     }
+    console.log(userId)
     let userWishlist = schema.users.findBy({ _id: userId }).wishlist;
     const productId = request.params.productId;
     userWishlist = userWishlist.filter((item) => item._id !== productId);

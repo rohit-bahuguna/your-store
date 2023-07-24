@@ -9,8 +9,6 @@ export const OrderSummary = () => {
     order: { amount, paymentId, delivery, products },
   } = useOrderData();
 
-  const { changeTitle } = useProductData();
-  changeTitle("Order Summery")
   return (
 
     <div className="w-full md:px-10 px-1">
@@ -48,7 +46,7 @@ export const OrderSummary = () => {
               {products.map(({ image, title, price, qty }) => (
 
                 <div className="flex py-2 justify-around border-b-2 border-gray-400">
-                  <img className="w-24 h-auto" src={image} alt={title} />
+                  <img loading="lazy" className="w-24 h-auto" src={image} alt={title} />
                     <div className="card-info">
                       <div className="card-title">
                         <div>

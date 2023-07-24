@@ -8,9 +8,9 @@ export const initialState = {
 	products: [],
 	search: '',
 	selectedCategory: '',
-	selectedSubCategories: []
+	selectedSubCategories: [],
+	loadingProducts: false
 };
-//ischecked: false, showSubCategories:false
 export function productReducer(state, action) {
 	const { type, payload } = action;
 	switch (type) {

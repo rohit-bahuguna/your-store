@@ -19,7 +19,9 @@ export const categories = [
 				subCategoryName: 'Exotic Fruits & Vegetables'
 			}
 		],
-		banner: '/images/category/Fruits-and-Vegetables.jpg'
+		mainBanner: "/images/categoryBanners/fruits-vegetables.avif",
+		banner: '/images/category/Fruits-and-Vegetables.jpg',
+
 	},
 	{
 		_id: uuid(),
@@ -31,8 +33,9 @@ export const categories = [
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Cakes & Muffins' },
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Paneer & Tofu' }
 		],
+		mainBanner: "/images/categoryBanners/dairy-bakery.avif",
 		banner:
-			'https://d2pyicwmjx3wii.cloudfront.net/s/60a39f1801d30d79c4caa94b/62e267b05ad1bccc988d7ffe/webp/dairy-and-bakery-1080x529.jpg'
+			'/images/category/dairy-and-bakery.jpg'
 	},
 	{
 		_id: uuid(),
@@ -53,6 +56,7 @@ export const categories = [
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Masalas & Spices' },
 			{ _id: uuid(), ischecked: false, subCategoryName: 'Salt, Sugar & Jaggery' }
 		],
+		mainBanner: "/images/categoryBanners/staples.avif",
 		banner: '/images/category/staples.jpg'
 	},
 	{ 
@@ -66,42 +70,38 @@ export const categories = [
 				_id: uuid(),
 				ischecked: false,
 				subCategoryName: 'Energy & Soft Drinks'
-			},
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Soda & Water' },
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Health Drink & Supplement'
 			}
+
 		],
+		mainBanner: "/images/categoryBanners/beverages.avif",
 		banner:
-			'https://5.imimg.com/data5/SELLER/Default/2020/10/NP/NQ/FF/115160227/q-500x500.png'
+			'/images/category/Beverages.jpg'
 	},
-	{
-		_id: uuid(),
-		categoryName: 'Snacks & Branded Foods',
-		subCategories: [
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Biscuits & Cookies' },
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Noodle, Pasta, Vermicelli'
-			},
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Snacks & Namkeen' },
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Chocolates & Candies'
-			},
-			{
-				_id: uuid(),
-				ischecked: false,
-				subCategoryName: 'Spreads, Sauces, Ketchup'
-			},
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Pickles & Chutney' },
-			{ _id: uuid(), ischecked: false, subCategoryName: 'Indian Sweets' }
-		],
-		banner: '/images/category/snacks.jpeg'
-	}
+	// {
+	// 	_id: uuid(),
+	// 	categoryName: 'Snacks & Branded Foods',
+	// 	subCategories: [
+	// 		{ _id: uuid(), ischecked: false, subCategoryName: 'Biscuits & Cookies' },
+	// 		{
+	// 			_id: uuid(),
+	// 			ischecked: false,
+	// 			subCategoryName: 'Noodle, Pasta, Vermicelli'
+	// 		},
+	// 		{ _id: uuid(), ischecked: false, subCategoryName: 'Snacks & Namkeen' },
+	// 		{
+	// 			_id: uuid(),
+	// 			ischecked: false,
+	// 			subCategoryName: 'Chocolates & Candies'
+	// 		},
+	// 		{
+	// 			_id: uuid(),
+	// 			ischecked: false,
+	// 			subCategoryName: 'Spreads, Sauces, Ketchup'
+	// 		},
+	// 		{ _id: uuid(), ischecked: false, subCategoryName: 'Pickles & Chutney' },
+	// 		{ _id: uuid(), ischecked: false, subCategoryName: 'Indian Sweets' }
+	// 	],
+	// 	banner: '/images/category/snacks.jpeg'
+	// }
 
 ];
