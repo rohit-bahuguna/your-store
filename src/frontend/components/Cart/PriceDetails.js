@@ -6,7 +6,7 @@ const PriceDetails = () => {
     const { priceDetails: { price, discount, coupon, totalAmt } } = useOrderData()
     const { cart } = useCartData()
     return (
-        <div className='flex flex-col gap-5  w-screen md:w-1/2'>
+        <div className='flex flex-col gap-5   w-screen lg:w-1/2 md:w-full'>
             <h4 className="text-xl font-semibold self-center" >PRICE DETAILS</h4>
 
             <div className="border-b-2 pb-3  flex flex-col gap-4 w-full px-5 text-lg">

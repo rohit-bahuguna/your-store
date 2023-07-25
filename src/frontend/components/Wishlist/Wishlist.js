@@ -38,12 +38,12 @@ export function Wishlist() {
               <img loading="lazy" src="/images/empty-wishlist.png" className="  h-auto " />
               <div className="flex  md:gap-10 gap-5">
                 {cart.length > 0 && <Link to="/cart">
-                  <button className="btnIndigo">
+                  <button className="text-indigo-700 rounded-full px-3 py-1 border border-indigo-700">
                     View Cart
                   </button>
                 </Link>}
                 <Link to="/products">
-                <button className="btnIndigo">
+                  <button className="text-indigo-700 rounded-full px-3 py-1 border border-indigo-700">
                   Explore Products
                 </button>
               </Link>

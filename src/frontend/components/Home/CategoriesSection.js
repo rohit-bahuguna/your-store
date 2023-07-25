@@ -15,7 +15,7 @@ const CategoriesSection = () => {
     }
 
     return (
-        <div className=" w-full  gap-3  px-1  sm:flex  sm:flex-row grid grid-cols-2 grid-rows-2   ">
+        <div className=" w-full  gap-3  px-1  md:flex  md:flex-row grid grid-cols-2 grid-rows-2   ">
             {categories.map(({ categoryName, _id, id, banner }) => {
                 return (
                     <div

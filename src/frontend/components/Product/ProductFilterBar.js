@@ -27,7 +27,7 @@ export function ProductFilterBar() {
 	const isSortByPrice = type => sortBy && sortBy === type;
 
 	return (
-		<div className=" flex flex-col gap-6   h-full">
+		<div className=" flex flex-col gap-6 w-full  h-full">
 			<div className="flex justify-between px-3 ">
 				<h4 className='font-semibold text-lg mb-1'>Filters</h4>
 				<button

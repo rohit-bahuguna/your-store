@@ -108,16 +108,16 @@ export const LogIn = () => {
               </div>
             </div>
 
-            <div className="flex gap-5 justify-between px-3">  
+            <div className="flex sm:gap-3 justify-between sm:px-3">  
               <Button
                 title={!loading ? "Log In" : "Logging In"}
                 callback={userSignIn}
-                style="border border-indigo-500 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-100 px-5 py-1 rounded-full hover:bg-indigo-200 shadow"
+                style="border border-indigo-500 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-100 px-5  py-1 rounded-full hover:bg-indigo-200 shadow"
               />
               <Button
                 title={"Sign In as Guest"}
                 callback={() => signInAsGuest()}
-                style="border border-indigo-500 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-100 px-5 py-1 rounded-full hover:bg-indigo-200 shadow"
+                style="border border-indigo-500 text-indigo-500 hover:text-indigo-700 hover:bg-indigo-100 px-5  py-1 rounded-full hover:bg-indigo-200 shadow"
               />
             </div>
             <p >New here? <Link to="/signup"><span className="text-sky-700">Create account</span></Link> </p>

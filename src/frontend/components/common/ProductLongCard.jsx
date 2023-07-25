@@ -39,14 +39,14 @@ const ProductLongCard = ({ product, from = "" }) => {
 
     return (
         <div key={product._id} className="flex flex-col pb-5  hover:shadow-lg md:px-5 px-2  hover:border rounded-xl    w-screen md:w-full ">
-            <div className="flex  md:gap-8">
+            <div className="flex flex-col sm:flex-row items-center md:gap-8">
                 <div className=" md:w-[25%] self-center  w-[50vw] ">
 
                     <Link to={`/product-details/${product.id}`}>
                         <img className=" " loading="lazy" src={product.image} alt={product.title} />
                     </Link>
                 </div>
-                <div className="md:grow w-[50vw] py-2 ">
+                <div className="sm:grow w sm:w-[50vw] py-2 ">
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-col gap-3">
 
@@ -77,7 +77,7 @@ const ProductLongCard = ({ product, from = "" }) => {
 
                 </div>
             </div>
-            <div className="flex    md:gap-10 gap-5 ">
+            <div className="flex  justify-center  md:gap-10 gap-3 ">
                 {
                     from === "" ? <>
                         <button className="btnRed" onClick={() => {
@@ -86,7 +86,7 @@ const ProductLongCard = ({ product, from = "" }) => {
                         >
                             REMOVE
                         </button>
-                        <button className="btnIndigo" onClick={() =>
+                        <button className="text-indigo-700 rounded-full px-3 py-1 border border-indigo-700 " onClick={() =>
                             (isInWishlist ? navigate("/wishlist") : moveToWishlistFromCart())}
                         >
                             {isInWishlist ? "ALREADY IN WISHLIST" : "MOVE TO WISHLIST"}

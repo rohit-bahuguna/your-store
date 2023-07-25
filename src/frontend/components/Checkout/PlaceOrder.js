@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useOrderData } from '../../contexts/orderContext';
 import { useAuthData } from '../../contexts/AuthContext/authContext';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCartData } from "../../contexts/cartContext/cartContext";
 import { ACTION_TYPE } from "../../utils";
-
+import Loader from "../common/Loader"
 const PlaceOrder = () => {
     const navigate = useNavigate();
     const { cart, clearCartProducts } = useCartData();
@@ -16,6 +16,7 @@ const PlaceOrder = () => {
         addresses
     } = useAuthData();
     const { totalAmt } = priceDetails;
+    const [loading, setLoading] = useState(false)
 
     const loadScript = async (url) => {
         return new Promise((resolve) => {
@@ -32,8 +33,9 @@ const PlaceOrder = () => {
             document.body.appendChild(script);
         });
     };
-    console.log(Number.parseInt(totalAmt))
+
     const displayRazorpay = async () => {
+        setLoading(true)
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
         if (!res) {
@@ -71,18 +73,24 @@ const PlaceOrder = () => {
             },
         };
         const paymentObject = new window.Razorpay(options);
+
         paymentObject.open();
+        setLoading(false)
     };
 
 
     return (
-        <div className="text-center" onClick={() => displayRazorpay()}>
+        <div className="text-center" onClick={displayRazorpay}>
             <button className="border px-5 py-1 text-indigo-700 hover:bg-indigo-100 border-indigo-700 rounded-full text-2xl
             disabled:bg-gray-300
             disabled:text-gray-500
             disabled:border-gray-500"
                 disabled={addresses.length <= 0}
             >Place Order</button>
+
+            {loading && <div className='fixed inset-0 bg-[#00000082] flex justify-center items-center'>
+                <Loader message={" Creating Payment , Do not Refresh or press back button"} />
+            </div>}
         </div>
     )
 }

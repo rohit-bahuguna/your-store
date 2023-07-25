@@ -49,14 +49,14 @@ export const Header = ({ setShowSearch }) => {
 
 
   return (
-    <nav className="flex border-b px-1  w-full h-[10vh] shadow  sm:gap-18 sm:justify-evenly justify-between items-center sticky top-0 bg-white z-10">
+    <nav className="flex border-b px-1 sm:px-5 w-full h-[10vh] shadow  sm:gap-18 md:justify-evenly justify-between items-center sticky top-0 bg-white z-10">
 
       {/* Logo */}
       <div className='flex gap-10     '>
         <Logo />
 
         {/* Address */}
-        <div className='hidden sm:block'>
+        <div className='hidden lg:block'>
           <p className='ml-1'> Deliver to</p>
 
 
@@ -83,7 +83,7 @@ export const Header = ({ setShowSearch }) => {
         {user.status &&
 
           <Link to="/user-profile">
-            <p className='mt-1 md:flex hidden items-center hover:text-sky-600'>
+            <p className='mt-1 lg:flex hidden items-center hover:text-sky-600'>
               <span className='first-letter:uppercase '>{user?.name.split(' ')[0]}</span> <BiChevronDown className='inline text-2xl' />
             </p>
           </Link>

@@ -54,24 +54,26 @@ export function ProductCard({ product }) {
 	};
 
 	return (
-		<div key={id} className="border-2  hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
-			<div className='self-end px-3 '>
-				{isInWishlist ? <AiFillHeart className=' text-3xl text-red-500' onClick={wishlistHandler} /> : <AiOutlineHeart className=" text-3xl  " onClick={wishlistHandler} />}
+		<div key={id} className="border-2 h-full gap-3   hover:shadow-md hover:shadow-current  flex flex-col py-2 rounded-lg">
+			<div className='flex flex-col '>
+				<div className='self-end px-3 '>
+					{isInWishlist ? <AiFillHeart className=' text-3xl text-red-500' onClick={wishlistHandler} /> : <AiOutlineHeart className=" text-3xl  " onClick={wishlistHandler} />}
+				</div>
+
+				<img
+					className="w-44 h-44 object-cover self-center  hover:cursor-pointer"
+					loading="lazy"
+					src={image}
+					alt={title}
+					onClick={() => navigate(`/product-details/${id}`)}
+				/>
 			</div>
 
-			<img
-				className="w-full h-auto hover:cursor-pointer"
-				loading="lazy"
-				src={image}
-				alt={title}
-				onClick={() => navigate(`/product-details/${id}`)}
-			/>
+
+			<div className="flex flex-col h-1/2 justify-around gap-2 items-start md:px-5 px-1">
 
 
-			<div className="flex flex-col  gap-2 items-start md:px-5 px-1">
-
-
-				<h3 className="md:text-xl   font-semibold" title={title}>
+				<h3 className="md:text-lg   font-semibold" title={title}>
 					{title} {quantity} {scale}
 				</h3>
 				<div className="flex items-center text-lg gap-1">
@@ -80,12 +82,12 @@ export function ProductCard({ product }) {
 				</div>
 
 
-				<div className="flex md:gap-8 gap-2 md:text-lg text-sm items-center font-semibold ">
-					<p className="  font-semibold">
+				<div className="flex md:gap-8 gap-2  md:text-lg text-sm items-center font-semibold flex-wrap ">
+					<p className="">
 						₹ {price}
 					</p>
 					<p className="text-gray-400 line-through">₹{product.originalPrice}</p>
-					<p className="text-green-900  bg-green-100 px-2 py-1 rounded-full ">{product.percentageOff}% OFF</p>
+					<p className="text-green-900  bg-green-100 px-2  py-1 rounded-full ">{product.percentageOff}% off</p>
 				</div>
 				{isInCart ? <button
 					className="btnIndigo bg-indigo-200 self-center flex items-center gap-2"
