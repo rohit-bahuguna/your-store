@@ -1,7 +1,7 @@
 
 # YOUR STORE
 
-YOUR STORE [Click here to visit](https://rohitbahuguna.vercel.app).
+YOUR STORE [Click here to visit](https://yourstore-rohit.vercel.app).
 
 # About This Project
     YOUR STORE is an grocery store to get your grocery at your door steps
