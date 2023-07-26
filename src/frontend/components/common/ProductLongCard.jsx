@@ -38,7 +38,7 @@ const ProductLongCard = ({ product, from = "" }) => {
     };
 
     return (
-        <div key={product._id} className="flex flex-col pb-5  hover:shadow-lg md:px-5 px-2  hover:border rounded-xl    w-screen md:w-full ">
+        <div className="flex flex-col pb-5  hover:shadow-lg md:px-5 px-2  hover:border rounded-xl    w-screen md:w-full ">
             <div className="flex flex-col sm:flex-row items-center md:gap-8">
                 <div className=" md:w-[25%] self-center  w-[50vw] ">
 
@@ -59,7 +59,7 @@ const ProductLongCard = ({ product, from = "" }) => {
                             <p className="text-gray-400 line-through">₹{product.originalPrice}</p>
                             <p className="text-green-900   bg-green-100 px-2 py-1 rounded-full">({product.percentageOff}% OFF)</p>
                         </div>
-                        <div className="flex gap-3 text-lg font-semibold">
+                        {isInCart && from == '' && <div className="flex  gap-3 text-lg font-semibold">
 
                             <button className="hover:bg-gray-300 px-1  py-1 rounded-full " onClick={() => product.qty > 1 &&
                                 incOrDecProductQuantity("DEC_QTY")}
@@ -72,12 +72,12 @@ const ProductLongCard = ({ product, from = "" }) => {
                             >
                                 <AiOutlinePlus className="text-2xl hover:text-indigo-700   " />
                             </button>
-                        </div>
+                        </div>}
                     </div>
 
                 </div>
             </div>
-            <div className="flex  justify-center  md:gap-10 gap-3 ">
+            <div className="flex   justify-start mt-2  md:gap-10 gap-3 ">
                 {
                     from === "" ? <>
                         <button className="btnRed" onClick={() => {

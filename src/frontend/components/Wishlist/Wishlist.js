@@ -11,6 +11,7 @@ export function Wishlist() {
   const { changeTitle } = useProductData()
   const isWishlistHasItem = wishlist.length > 0;
 
+
   changeTitle("Wishlist")
   return (
     <Layout>
