@@ -8,6 +8,7 @@ import Layout from "../common/Layout"
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { getCategoryImage } from "../../utils/staticData";
 import Loader from "../common/Loader"
+import FilterBar from "./FilterBar";
 
 export function ProductListing() {
   const {
@@ -46,7 +47,11 @@ export function ProductListing() {
 
   return (
     <Layout>
+      <FilterBar />
       <div className="flex w-full gap-2 ">
+        <div>
+
+        </div>
         <div className="border-r-2 w-[20%]  overflow-auto h-[90vh]  sticky hidden lg:block top-[12vh] ">
           <ProductFilterBar />
         </div>
@@ -87,7 +92,7 @@ export function ProductListing() {
             {sortedData.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
-          </div>  
+          </div>
           }
         </div>
         {showFilter && <div className="lg:hidden  fixed bottom-0 top-[4.1rem]  py-2 bg-white overflow-auto  sm:w-[40%] md:w-[30%] " ref={filterRef}>

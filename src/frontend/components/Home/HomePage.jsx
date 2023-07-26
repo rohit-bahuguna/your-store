@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useProductData } from '../../contexts/productContext/productContext';
@@ -11,7 +11,7 @@ import CategoryProductSection from './CategoryProductSection';
 
 export const HomePage = () => {
 
-  const { dispatchProductData, changeTitle } = useProductData();
+  const { dispatchProductData, changeTitle, products } = useProductData();
 
   const navigate = useNavigate();
 
@@ -24,6 +24,13 @@ export const HomePage = () => {
     });
     navigate(`/products`, { state: categoryName })
   }
+
+  useEffect(() => {
+    dispatchProductData({
+      type: ACTION_TYPE.CLEAR_FILTER,
+      payload: products
+    })
+  }, [])
 
 
   return (

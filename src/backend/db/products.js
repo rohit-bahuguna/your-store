@@ -2536,7 +2536,7 @@ export const products = [
 		subCategoryName: 'Oils & Ghee',
 		title: 'Gulab Groundnut Oil',
 		originalPrice: 1129,
-		price: 1009,
+		price: 1000,
 		inStock: true,
 		soldBy: 'Rohit Bahuguna Retail pvt Ltd',
 		description: "Gulab Gold Filtered Groundnut Oil is good for preparing sweets and savouries and is used to enhance the flavour and taste of food. Groundnut Oil is one of the purest forms of Oil.",

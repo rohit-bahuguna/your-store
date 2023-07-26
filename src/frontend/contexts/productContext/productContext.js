@@ -31,7 +31,7 @@ const ProductProvider = ({ children }) => {
 					payload: products
 				});
 			} catch (error) {
-				console.error(error.message);
+
 			}
 		})();
 
@@ -44,7 +44,7 @@ const ProductProvider = ({ children }) => {
 					payload: categories
 				});
 			} catch (error) {
-				console.error(error.message);
+
 			}
 		})();
 	}, []);

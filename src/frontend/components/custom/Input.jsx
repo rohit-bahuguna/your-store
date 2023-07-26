@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ inputInfo: { value, label, type, callback, name, error }, style = "", disabled = false }) => {
+const Input = ({ inputInfo: { value, label, type, callback, name, error }, style, disabled = false }) => {
 
   return (
     <>
@@ -15,6 +15,7 @@ const Input = ({ inputInfo: { value, label, type, callback, name, error }, style
           name={name}
           value={value}
           disabled={disabled}
+          required
         />
         {
           error.status ? <p className="text-red-500 text-sm">{error.error}</p> : ""

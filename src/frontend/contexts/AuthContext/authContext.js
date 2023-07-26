@@ -85,7 +85,7 @@ const AuthProvider = ({ children }) => {
 
 	const addUsersAddress = async address => {
 		try {
-			console.log(state.token)
+
 			const { data } = await addAddress(address, state.token);
 			dispatch({
 				type: ACTION_TYPE.SET_ADDRESS,

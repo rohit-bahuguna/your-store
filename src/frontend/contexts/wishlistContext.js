@@ -47,7 +47,7 @@ const WishlistProvider = ({ children }) => {
 
         } catch (error) {
 
-            console.log(error)
+
             toast.error("something went wrong")
         }
     }

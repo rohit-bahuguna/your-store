@@ -88,7 +88,7 @@ const PlaceOrder = () => {
                 disabled={addresses.length <= 0}
             >Place Order</button>
 
-            {loading && <div className='fixed inset-0 bg-[#00000082] flex justify-center items-center'>
+            {loading && <div className='fixed inset-0 bg-[#f8f8f8ee] flex justify-center items-center'>
                 <Loader message={" Creating Payment , Do not Refresh or press back button"} />
             </div>}
         </div>

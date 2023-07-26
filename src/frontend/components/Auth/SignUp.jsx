@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Layout from "../common/Layout";
 import Input from "../custom/Input";
 import Button from "../custom/Button";
-import { validateUserData } from "../../services/validation/signInValidater";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { validateUserData } from "../../utils/validation/signInValidater";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthData } from "../../contexts/AuthContext/authContext";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
@@ -23,7 +23,7 @@ export const SignUp = () => {
 
   const [error, setError] = useState(initialErrors);
   const [loading, setLoading] = useState(false);
-  const { signUpUser, token } = useAuthData()
+  const { signUpUser } = useAuthData()
   const getUserData = (e) => {
     setError(initialErrors);
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -45,7 +45,7 @@ export const SignUp = () => {
     }
   };
 
-  console.log(userData)
+
 
   return (
     <Layout>

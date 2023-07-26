@@ -9,9 +9,9 @@ const Layout = ({ children }) => {
   const [showSearch, setShowSearch] = useState(false)
   const searchRef = useRef()
   useOutsideClick(searchRef, () => setShowSearch(false))
-  console.log(showSearch)
+
   return (
-    <div className="flex w-full flex-col md:gap-5 gap-1 relative">
+    <div className="flex w-full flex-col md:gap-2 gap-1 relative">
       <Toaster
         position="top-center"
         reverseOrder={false}

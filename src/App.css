@@ -38,3 +38,8 @@ td p {
 .changeColorOnHover:hover{
 	@apply bg-indigo-100 text-indigo-700
 }
+
+
+.filter {
+	@apply bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full
+}

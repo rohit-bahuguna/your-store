@@ -93,7 +93,13 @@ export function productReducer(state, action) {
 				sortByRating: '',
 				search: '',
 				selectedCategory: '',
-				selectedSubCategories: []
+				selectedSubCategories: [],
+				categories: state.categories.map(({ subCategories, ...rest }) => {
+					const updatedSubCategories = subCategories.map((subCategory) => {
+						return { ...subCategory, ischecked: false }
+					})
+					return { ...rest, subCategories: updatedSubCategories }
+				})
 			};
 		case ACTION_TYPE.SHOW_OR_HIDE_SUBCATEGORIES:
 			const { _id, value } = payload;

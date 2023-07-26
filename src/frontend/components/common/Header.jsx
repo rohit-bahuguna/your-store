@@ -1,6 +1,6 @@
 
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useState, useRef } from 'react';
 import { CiLocationOn } from "react-icons/ci"
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdLogout } from "react-icons/md"
@@ -56,7 +56,7 @@ export const Header = ({ setShowSearch }) => {
         <Logo />
 
         {/* Address */}
-        <div className='hidden lg:block'>
+        {addresses.length > 0 && <div className='hidden lg:block'>
           <p className='ml-1'> Deliver to</p>
 
 
@@ -69,7 +69,7 @@ export const Header = ({ setShowSearch }) => {
             }
           </div>
 
-        </div>
+        </div>}
       </div>
 
       {/* search */}

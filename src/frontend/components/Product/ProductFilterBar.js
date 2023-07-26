@@ -15,11 +15,11 @@ export function ProductFilterBar() {
 		categories
 	} = useProductData();
 
-	const changeHandler = (actionType, priceRange) => {
+	const changeHandler = (actionType, payload) => {
 
 		dispatchProductData({
 			type: actionType,
-			payload: priceRange
+			payload
 		});
 	};
 
@@ -28,8 +28,8 @@ export function ProductFilterBar() {
 
 	return (
 		<div className=" flex flex-col gap-6 w-full  h-full">
-			<div className="flex justify-between px-3 ">
-				<h4 className='font-semibold text-lg mb-1'>Filters</h4>
+			<div className="px-3 self-end ">
+
 				<button
 					onClick={() => {
 						changeHandler(ACTION_TYPE.CLEAR_FILTER, products);
@@ -44,15 +44,15 @@ export function ProductFilterBar() {
 				<div>
 					<div className="flex justify-between">
 						<p className='hover:cursor-pointer hover:text-indigo-700' onClick={() => changeHandler(ACTION_TYPE.PRICE_RANGE, 10)}>10</p>
-						{priceRange > 10 && priceRange < 500 && <p>{priceRange}</p>}
-						<p className='hover:cursor-pointer hover:text-indigo-700' onClick={() => changeHandler(ACTION_TYPE.PRICE_RANGE, 500)}>500</p>
+						{priceRange > 10 && priceRange < 1000 && <p>{priceRange}</p>}
+						<p className='hover:cursor-pointer hover:text-indigo-700' onClick={() => changeHandler(ACTION_TYPE.PRICE_RANGE, 1000)}>1000</p>
 					</div>
 					<input
 						type="range"
 						name="rangeInput"
 						className="w-full"
 						min="10"
-						max="500"
+						max="1000"
 
 						value={priceRange}
 						onChange={e =>
