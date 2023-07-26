@@ -18,7 +18,7 @@ YOUR STORE [Click here to visit](https://rohitbahuguna.vercel.app).
 
     If you click on any one of the categories will be redirected to the product list page with the selected category.
 
-![Alt text](<public/images/Readme/Screenshot from 2023-07-26 11-00-37.png>)
+![Alt text](<public\images\Readme\Screenshot from 2023-07-26 11-00-37.png>)
 
 ![Alt text](<public/images/Readme/Screenshot from 2023-07-26 11-00-48.png>)
 
