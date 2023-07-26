@@ -15,7 +15,7 @@ export function Wishlist() {
   changeTitle("Wishlist")
   return (
     <Layout>
-      <div className="flex justify-center px-5 py-5 ">
+      <div className="flex justify-center px-5 py-5 mb-40">
 
         {isWishlistHasItem ? (
           <div className="px-5">
